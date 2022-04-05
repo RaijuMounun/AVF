@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{B3ED7713-4B31-873A-ABAC-B18B8FDF09D4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sirenix.OdinInspector.CompatibilityLayer", "Sirenix.OdinInspector.CompatibilityLayer.csproj", "{8AB656BD-625D-2981-DE28-DCA414D747CF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sirenix.OdinInspector.CompatibilityLayer.Editor", "Sirenix.OdinInspector.CompatibilityLayer.Editor.csproj", "{4C737FE7-7C36-E876-E6F4-A26176E08B82}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B3ED7713-4B31-873A-ABAC-B18B8FDF09D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3ED7713-4B31-873A-ABAC-B18B8FDF09D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3ED7713-4B31-873A-ABAC-B18B8FDF09D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3ED7713-4B31-873A-ABAC-B18B8FDF09D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8AB656BD-625D-2981-DE28-DCA414D747CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AB656BD-625D-2981-DE28-DCA414D747CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AB656BD-625D-2981-DE28-DCA414D747CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AB656BD-625D-2981-DE28-DCA414D747CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C737FE7-7C36-E876-E6F4-A26176E08B82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C737FE7-7C36-E876-E6F4-A26176E08B82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C737FE7-7C36-E876-E6F4-A26176E08B82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C737FE7-7C36-E876-E6F4-A26176E08B82}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
