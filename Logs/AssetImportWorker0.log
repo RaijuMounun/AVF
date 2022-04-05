@@ -203,3 +203,4 @@ Received Import Request.
   path: Assets/ImportedPackages/Skybox add-on/Skyboxes/Skybox_5.mat
   artifactKey: Guid(65d3da4941f6640f5affd14afc45ebc2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
 Start importing Assets/ImportedPackages/Skybox add-on/Skyboxes/Skybox_5.mat using Guid(65d3da4941f6640f5affd14afc45ebc2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '88ab45fd41b4306ad6ef5b885236a338') in 0.008595 seconds 
+AssetImportWorkerClient::OnTransportError - code=2 error=End of file
