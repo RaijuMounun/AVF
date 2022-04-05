@@ -1,2 +1,14 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+3a4167531407126b728c130e07b05cb8 filter=lfs diff=lfs merge=lfs -text
+5ee75e2753b816fa8e6ad401e9749522 filter=lfs diff=lfs merge=lfs -text
+8a6197723d215d5e4e34f1d565c010a4 filter=lfs diff=lfs merge=lfs -text
+8ebecec0a9691766e84bec803eae1995 filter=lfs diff=lfs merge=lfs -text
+29d60893cda97c2e293ec2ee0d62325c filter=lfs diff=lfs merge=lfs -text
+68b06f4410133c390010086f206af35f filter=lfs diff=lfs merge=lfs -text
+99078107921512e96c6fe6c1d27dbf73 filter=lfs diff=lfs merge=lfs -text
+f2fa5607f1cf0db33138a117cbffed73 filter=lfs diff=lfs merge=lfs -text
+f22ebbdda680f35e18658612e00f0bd8 filter=lfs diff=lfs merge=lfs -text
+f4f6761c7d187529286da29a9e7ccaa9 filter=lfs diff=lfs merge=lfs -text
+*.7z filter=lfs diff=lfs merge=lfs -text
+*.resS filter=lfs diff=lfs merge=lfs -text
