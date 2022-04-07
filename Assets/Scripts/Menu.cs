@@ -12,6 +12,14 @@ public class Menu : MonoBehaviour
 
     #region Deðiþkenler
 
+    #region Büyük sayý constantlarý
+    const double million = 1000000;
+    const double billion = 1000000000;
+    const double trillion = 1000000000000;
+    const double quadrillion = 1000000000000000;
+    const double quintillion = 1000000000000000000;
+    #endregion
+
     #region Odun
     [BoxGroup("ODUN")]
     [FoldoutGroup("ODUN/Bool")]
@@ -467,707 +475,47 @@ public class Menu : MonoBehaviour
         disliIncUpgLvlText.text = "x" + disliIncUpgLvl;
         #endregion
 
-        #region Binalar alýnmamýþken upgradeler kapalý kalsýn
-        if (keresteAlindi == false)
-        {
-            keresteHizUpgUnite.SetActive(false);
-            keresteIncUpgUnite.SetActive(false);
-        }
-        else
-        {
-            keresteHizUpgUnite.SetActive(true);
-            keresteIncUpgUnite.SetActive(true);
-        }
-        if (kulceAlindi == false)
-        {
-            kulceHizUpgUnite.SetActive(false);
-            kulceIncUpgUnite.SetActive(false);
-        }
-        else
-        {
-            kulceHizUpgUnite.SetActive(true);
-            kulceIncUpgUnite.SetActive(true);
-        }
-        if (civiAlindi == false)
-        {
-            civiHizUpgUnite.SetActive(false);
-            civiIncUpgUnite.SetActive(false);
-        }
-        else
-        {
-            civiHizUpgUnite.SetActive(true);
-            civiIncUpgUnite.SetActive(true);
-        }
-        if (disliAlindi == false)
-        {
-            disliHizUpgUnite.SetActive(false);
-            disliIncUpgUnite.SetActive(false);
-        }
-        else
-        {
-            disliHizUpgUnite.SetActive(true);
-            disliIncUpgUnite.SetActive(true);
-        }
+        #region Binalar alýnmamýþken upgradeler kapalý kalsýn        
+        keresteHizUpgUnite.SetActive(keresteAlindi);
+        keresteIncUpgUnite.SetActive(keresteAlindi);        
+        kulceHizUpgUnite.SetActive(kulceAlindi);
+        kulceIncUpgUnite.SetActive(kulceAlindi);        
+        civiHizUpgUnite.SetActive(civiAlindi);
+        civiIncUpgUnite.SetActive(civiAlindi);        
+        disliHizUpgUnite.SetActive(disliAlindi);
+        disliIncUpgUnite.SetActive(disliAlindi);
         #endregion
 
-        //Odun////////////////////////////////////////
+        #region Yükseltme cost ve gereken para gösterimleri
+        //Hýz yükseltmeleri
+        upgradeCostGosterimler(woodSpdUpgCost, woodSpdUpgCostText, "");
+        upgradeCostGosterimler(demirOreSpdUpgCost, demirOreSpdUpgCostText, "");
+        upgradeCostGosterimler(timberSpdUpgCost, timberSpdUpgCostText, "");
+        upgradeCostGosterimler(kulceSpdUpgCost, kulceSpdUpgCostText, "");
+        upgradeCostGosterimler(civiSpdUpgCost, civiSpdUpgCostText, "");
+        upgradeCostGosterimler(disliSpdUpgCost, disliSpdUpgCostText, "");
+        //Hýz yükseltmesine para yetmiyorsa
+        upgradeCostGosterimler(woodSpdUpgCost, woodspdyouneeddollartext, "You Need $");
+        upgradeCostGosterimler(demirOreSpdUpgCost, demirOrespdyouneeddollartext, "You Need $");
+        upgradeCostGosterimler(timberSpdUpgCost, timberspdyouneeddollartext, "You Need $");
+        upgradeCostGosterimler(kulceSpdUpgCost, kulcespdyouneeddollartext, "You Need $");
+        upgradeCostGosterimler(civiSpdUpgCost, civispdyouneeddollartext, "You Need $");
+        upgradeCostGosterimler(disliSpdUpgCost, dislispdyouneeddollartext, "You Need $");
 
-        #region wood spd upg cost gösterim
-        if (woodSpdUpgCost < 1000000)
-        {
-            woodSpdUpgCostText.text = string.Format("${0:#.0}", woodSpdUpgCost);
-        }
-        else if (woodSpdUpgCost >= 1000000)
-        {
-            woodSpdUpgCostText.text = (woodSpdUpgCost / 1000000).ToString("F") + " Mil.";
-        }
-        else if (woodSpdUpgCost >= 1000000000)
-        {
-            woodSpdUpgCostText.text = (woodSpdUpgCost / 1000000000).ToString("F") + " Bil.";
-        }
-        else if (woodSpdUpgCost >= 1000000000000)
-        {
-            woodSpdUpgCostText.text = (woodSpdUpgCost / 1000000000000).ToString("F") + " Tril.";
-        }
-        else if (woodSpdUpgCost >= 1000000000000000)
-        {
-            woodSpdUpgCostText.text = (woodSpdUpgCost / 1000000000000000).ToString("F") + " Quadril.";
-        }
-        else if (woodSpdUpgCost >= 1000000000000000000)
-        {
-            woodSpdUpgCostText.text = (woodSpdUpgCost / 1000000000000000000).ToString("F") + " Quintil.";
-        }
-        #endregion        
-
-        #region you need $ cost gösterim speed upgrade
-        if (woodSpdUpgCost < 1000000)
-        {
-            woodspdyouneeddollartext.text = string.Format("You Need ${0:#.0}", woodSpdUpgCost);
-        }
-        else if (woodSpdUpgCost >= 1000000)
-        {
-            woodspdyouneeddollartext.text = "You Need $" + (woodSpdUpgCost / 1000000).ToString("F") + " Mil.";
-        }
-        else if (woodSpdUpgCost >= 1000000000)
-        {
-            woodspdyouneeddollartext.text = "You Need $" + (woodSpdUpgCost / 1000000000).ToString("F") + " Bil.";
-        }
-        else if (woodSpdUpgCost >= 1000000000000)
-        {
-            woodspdyouneeddollartext.text = "You Need $" + (woodSpdUpgCost / 1000000000000).ToString("F") + " Tril.";
-        }
-        else if (woodSpdUpgCost >= 1000000000000000)
-        {
-            woodspdyouneeddollartext.text = "You Need $" + (woodSpdUpgCost / 1000000000000000).ToString("F") + " Quadril.";
-        }
-        else if (woodSpdUpgCost >= 1000000000000000000)
-        {
-            woodspdyouneeddollartext.text = "You Need $" + (woodSpdUpgCost / 1000000000000000000).ToString("F") + " Quintil.";
-        }
-        #endregion
-
-        #region wood inc upg cost gösterim
-        if (woodIncUpgCost < 1000000)
-        {
-            woodIncUpgCostText.text = string.Format("${0:#.0}", woodIncUpgCost);
-        }
-        else if (woodIncUpgCost >= 1000000)
-        {
-            woodIncUpgCostText.text = (woodIncUpgCost / 1000000).ToString("F") + " Mil.";
-        }
-        else if (woodIncUpgCost >= 1000000000)
-        {
-            woodIncUpgCostText.text = (woodIncUpgCost / 1000000000).ToString("F") + " Bil.";
-        }
-        else if (woodIncUpgCost >= 1000000000000)
-        {
-            woodIncUpgCostText.text = (woodIncUpgCost / 1000000000000).ToString("F") + " Tril.";
-        }
-        else if (woodIncUpgCost >= 1000000000000000)
-        {
-            woodIncUpgCostText.text = (woodIncUpgCost / 1000000000000000).ToString("F") + " Quadril.";
-        }
-        else if (woodIncUpgCost >= 1000000000000000000)
-        {
-            woodIncUpgCostText.text = (woodIncUpgCost / 1000000000000000000).ToString("F") + " Quintil.";
-        }
-        #endregion
-
-        #region you need $ cost gösterim income upgrade
-        if (woodIncUpgCost < 1000000)
-        {
-            woodincyouneeddollartext.text = string.Format("You Need ${0:#.0}", woodIncUpgCost);
-        }
-        else if (woodIncUpgCost >= 1000000)
-        {
-            woodincyouneeddollartext.text = "You Need $" + (woodIncUpgCost / 1000000).ToString("F") + " Mil.";
-        }
-        else if (woodIncUpgCost >= 1000000000)
-        {
-            woodincyouneeddollartext.text = "You Need $" + (woodIncUpgCost / 1000000000).ToString("F") + " Bil.";
-        }
-        else if (woodIncUpgCost >= 1000000000000)
-        {
-            woodincyouneeddollartext.text = "You Need $" + (woodIncUpgCost / 1000000000000).ToString("F") + " Tril.";
-        }
-        else if (woodIncUpgCost >= 1000000000000000)
-        {
-            woodincyouneeddollartext.text = "You Need $" + (woodIncUpgCost / 1000000000000000).ToString("F") + " Quadril.";
-        }
-        else if (woodIncUpgCost >= 1000000000000000000)
-        {
-            woodincyouneeddollartext.text = "You Need $" + (woodIncUpgCost / 1000000000000000000).ToString("F") + " Quintil.";
-        }
-        #endregion
-
-        //Demir ore////////////////////////////////////////////
-
-        #region demir ore hýz upg cost gösterim
-        if (demirOreSpdUpgCost < 1000000)
-        {
-            demirOreSpdUpgCostText.text = string.Format("${0:#.0}", demirOreSpdUpgCost);
-        }
-        else if (demirOreSpdUpgCost >= 1000000)
-        {
-            demirOreSpdUpgCostText.text = (demirOreSpdUpgCost / 1000000).ToString("F") + " Mil.";
-        }
-        else if (demirOreSpdUpgCost >= 1000000000)
-        {
-            demirOreSpdUpgCostText.text = (demirOreSpdUpgCost / 1000000000).ToString("F") + " Bil.";
-        }
-        else if (demirOreSpdUpgCost >= 1000000000000)
-        {
-            demirOreSpdUpgCostText.text = (demirOreSpdUpgCost / 1000000000000).ToString("F") + " Tril.";
-        }
-        else if (demirOreSpdUpgCost >= 1000000000000000)
-        {
-            demirOreSpdUpgCostText.text = (demirOreSpdUpgCost / 1000000000000000).ToString("F") + " Quadril.";
-        }
-        else if (demirOreSpdUpgCost >= 1000000000000000000)
-        {
-            demirOreSpdUpgCostText.text = (demirOreSpdUpgCost / 1000000000000000000).ToString("F") + " Quintil.";
-        }
-        #endregion
-
-        #region you need $ cost gösterim hýz upgrade
-        if (demirOreSpdUpgCost < 1000000)
-        {
-            demirOrespdyouneeddollartext.text = string.Format("You Need ${0:#.0}", demirOreSpdUpgCost);
-        }
-        else if (demirOreSpdUpgCost >= 1000000)
-        {
-            demirOrespdyouneeddollartext.text = "You Need $" + (demirOreSpdUpgCost / 1000000).ToString("F") + " Mil.";
-        }
-        else if (demirOreSpdUpgCost >= 1000000000)
-        {
-            demirOrespdyouneeddollartext.text = "You Need $" + (demirOreSpdUpgCost / 1000000000).ToString("F") + " Bil.";
-        }
-        else if (demirOreSpdUpgCost >= 1000000000000)
-        {
-            demirOrespdyouneeddollartext.text = "You Need $" + (demirOreSpdUpgCost / 1000000000000).ToString("F") + " Tril.";
-        }
-        else if (demirOreSpdUpgCost >= 1000000000000000)
-        {
-            demirOrespdyouneeddollartext.text = "You Need $" + (demirOreSpdUpgCost / 1000000000000000).ToString("F") + " Quadril.";
-        }
-        else if (demirOreSpdUpgCost >= 1000000000000000000)
-        {
-            demirOrespdyouneeddollartext.text = "You Need $" + (demirOreSpdUpgCost / 1000000000000000000).ToString("F") + " Quintil.";
-        }
-        #endregion
-
-        #region demir ore income upg cost gösterim
-        if (demirOreIncUpgCost < 1000000)
-        {
-            demirOreIncUpgCostText.text = string.Format("${0:#.0}", demirOreIncUpgCost);
-        }
-        else if (demirOreIncUpgCost >= 1000000)
-        {
-            demirOreIncUpgCostText.text = (demirOreIncUpgCost / 1000000).ToString("F") + " Mil.";
-        }
-        else if (demirOreIncUpgCost >= 1000000000)
-        {
-            demirOreIncUpgCostText.text = (demirOreIncUpgCost / 1000000000).ToString("F") + " Bil.";
-        }
-        else if (demirOreIncUpgCost >= 1000000000000)
-        {
-            demirOreIncUpgCostText.text = (demirOreIncUpgCost / 1000000000000).ToString("F") + " Tril.";
-        }
-        else if (demirOreIncUpgCost >= 1000000000000000)
-        {
-            demirOreIncUpgCostText.text = (demirOreIncUpgCost / 1000000000000000).ToString("F") + " Quadril.";
-        }
-        else if (demirOreIncUpgCost >= 1000000000000000000)
-        {
-            demirOreIncUpgCostText.text = (demirOreIncUpgCost / 1000000000000000000).ToString("F") + " Quintil.";
-        }
-        #endregion
-
-        #region you need $ cost gösterim income upgrade
-        if (demirOreIncUpgCost < 1000000)
-        {
-            demirOreincyouneeddollartext.text = string.Format("You Need ${0:#.0}", demirOreIncUpgCost);
-        }
-        else if (demirOreIncUpgCost >= 1000000)
-        {
-            demirOreincyouneeddollartext.text = "You Need $" + (demirOreIncUpgCost / 1000000).ToString("F") + " Mil.";
-        }
-        else if (demirOreIncUpgCost >= 1000000000)
-        {
-            demirOreincyouneeddollartext.text = "You Need $" + (demirOreIncUpgCost / 1000000000).ToString("F") + " Bil.";
-        }
-        else if (demirOreIncUpgCost >= 1000000000000)
-        {
-            demirOreincyouneeddollartext.text = "You Need $" + (demirOreIncUpgCost / 1000000000000).ToString("F") + " Tril.";
-        }
-        else if (demirOreIncUpgCost >= 1000000000000000)
-        {
-            demirOreincyouneeddollartext.text = "You Need $" + (demirOreIncUpgCost / 1000000000000000).ToString("F") + " Quadril.";
-        }
-        else if (demirOreIncUpgCost >= 1000000000000000000)
-        {
-            demirOreincyouneeddollartext.text = "You Need $" + (demirOreIncUpgCost / 1000000000000000000).ToString("F") + " Quintil.";
-        }
-        #endregion
-
-        //Kereste///////////////////////////////////////////
-
-        #region timber spd upg cost gösterim
-        if (timberSpdUpgCost < 1000000)
-        {
-            timberSpdUpgCostText.text = string.Format("${0:#.0}", timberSpdUpgCost);
-        }
-        else if (timberSpdUpgCost >= 1000000)
-        {
-            timberSpdUpgCostText.text = (timberSpdUpgCost / 1000000).ToString("F") + " Mil.";
-        }
-        else if (timberSpdUpgCost >= 1000000000)
-        {
-            timberSpdUpgCostText.text = (timberSpdUpgCost / 1000000000).ToString("F") + " Bil.";
-        }
-        else if (timberSpdUpgCost >= 1000000000000)
-        {
-            timberSpdUpgCostText.text = (timberSpdUpgCost / 1000000000000).ToString("F") + " Tril.";
-        }
-        else if (timberSpdUpgCost >= 1000000000000000)
-        {
-            timberSpdUpgCostText.text = (timberSpdUpgCost / 1000000000000000).ToString("F") + " Quadril.";
-        }
-        else if (timberSpdUpgCost >= 1000000000000000000)
-        {
-            timberSpdUpgCostText.text = (timberSpdUpgCost / 1000000000000000000).ToString("F") + " Quintil.";
-        }
-        #endregion
-
-        #region you need $ cost gösterim speed upgrade
-        if (timberSpdUpgCost < 1000000)
-        {
-            timberspdyouneeddollartext.text = string.Format("You Need ${0:#.0}", timberSpdUpgCost);
-        }
-        else if (timberSpdUpgCost >= 1000000)
-        {
-            timberspdyouneeddollartext.text = "You Need $" + (timberSpdUpgCost / 1000000).ToString("F") + " Mil.";
-        }
-        else if (timberSpdUpgCost >= 1000000000)
-        {
-            timberspdyouneeddollartext.text = "You Need $" + (timberSpdUpgCost / 1000000000).ToString("F") + " Bil.";
-        }
-        else if (timberSpdUpgCost >= 1000000000000)
-        {
-            timberspdyouneeddollartext.text = "You Need $" + (timberSpdUpgCost / 1000000000000).ToString("F") + " Tril.";
-        }
-        else if (timberSpdUpgCost >= 1000000000000000)
-        {
-            timberspdyouneeddollartext.text = "You Need $" + (timberSpdUpgCost / 1000000000000000).ToString("F") + " Quadril.";
-        }
-        else if (timberSpdUpgCost >= 1000000000000000000)
-        {
-            timberspdyouneeddollartext.text = "You Need $" + (timberSpdUpgCost / 1000000000000000000).ToString("F") + " Quintil.";
-        }
-        #endregion
-
-        #region timber inc upg cost gösterim
-        if (timberIncUpgCost < 1000000)
-        {
-            timberIncUpgCostText.text = string.Format("${0:#.0}", timberIncUpgCost);
-        }
-        else if (timberIncUpgCost >= 1000000)
-        {
-            timberIncUpgCostText.text = (timberIncUpgCost / 1000000).ToString("F") + " Mil.";
-        }
-        else if (timberIncUpgCost >= 1000000000)
-        {
-            timberIncUpgCostText.text = (timberIncUpgCost / 1000000000).ToString("F") + " Bil.";
-        }
-        else if (timberIncUpgCost >= 1000000000000)
-        {
-            timberIncUpgCostText.text = (timberIncUpgCost / 1000000000000).ToString("F") + " Tril.";
-        }
-        else if (timberIncUpgCost >= 1000000000000000)
-        {
-            timberIncUpgCostText.text = (timberIncUpgCost / 1000000000000000).ToString("F") + " Quadril.";
-        }
-        else if (timberIncUpgCost >= 1000000000000000000)
-        {
-            timberIncUpgCostText.text = (timberIncUpgCost / 1000000000000000000).ToString("F") + " Quintil.";
-        }
-        #endregion
-
-        #region you need $ cost gösterim income upgrade
-        if (timberIncUpgCost < 1000000)
-        {
-            timberincyouneeddollartext.text = string.Format("You Need ${0:#.0}", timberIncUpgCost);
-        }
-        else if (timberIncUpgCost >= 1000000)
-        {
-            timberincyouneeddollartext.text = "You Need $" + (timberIncUpgCost / 1000000).ToString("F") + " Mil.";
-        }
-        else if (timberIncUpgCost >= 1000000000)
-        {
-            timberincyouneeddollartext.text = "You Need $" + (timberIncUpgCost / 1000000000).ToString("F") + " Bil.";
-        }
-        else if (timberIncUpgCost >= 1000000000000)
-        {
-            timberincyouneeddollartext.text = "You Need $" + (timberIncUpgCost / 1000000000000).ToString("F") + " Tril.";
-        }
-        else if (timberIncUpgCost >= 1000000000000000)
-        {
-            timberincyouneeddollartext.text = "You Need $" + (timberIncUpgCost / 1000000000000000).ToString("F") + " Quadril.";
-        }
-        else if (timberIncUpgCost >= 1000000000000000000)
-        {
-            timberincyouneeddollartext.text = "You Need $" + (timberIncUpgCost / 1000000000000000000).ToString("F") + " Quintil.";
-        }
-        #endregion
-
-        //Külçe///////////////////////////////////////////
-
-        #region Külçe spd upg cost Gösterim
-        if (kulceSpdUpgCost < 1000000)
-        {
-            kulceSpdUpgCostText.text = string.Format("${0:#.0}", kulceSpdUpgCost);
-        }
-        else if (kulceSpdUpgCost >= 1000000)
-        {
-            kulceSpdUpgCostText.text = (kulceSpdUpgCost / 1000000).ToString("F") + " Mil.";
-        }
-        else if (kulceSpdUpgCost >= 1000000000)
-        {
-            kulceSpdUpgCostText.text = (kulceSpdUpgCost / 1000000000).ToString("F") + " Bil.";
-        }
-        else if (kulceSpdUpgCost >= 1000000000000)
-        {
-            kulceSpdUpgCostText.text = (kulceSpdUpgCost / 1000000000000).ToString("F") + " Tril.";
-        }
-        else if (kulceSpdUpgCost >= 1000000000000000)
-        {
-            kulceSpdUpgCostText.text = (kulceSpdUpgCost / 1000000000000000).ToString("F") + " Quadril.";
-        }
-        else if (kulceSpdUpgCost >= 1000000000000000000)
-        {
-            kulceSpdUpgCostText.text = (kulceSpdUpgCost / 1000000000000000000).ToString("F") + " Quintil.";
-        }
-        #endregion
-
-        #region you need $ cost gösterim speed upgrade
-        if (kulceSpdUpgCost < 1000000)
-        {
-            kulcespdyouneeddollartext.text = string.Format("You Need ${0:#.0}", kulceSpdUpgCost);
-        }
-        else if (kulceSpdUpgCost >= 1000000)
-        {
-            kulcespdyouneeddollartext.text = "You Need $" + (kulceSpdUpgCost / 1000000).ToString("F") + " Mil.";
-        }
-        else if (kulceSpdUpgCost >= 1000000000)
-        {
-            kulcespdyouneeddollartext.text = "You Need $" + (kulceSpdUpgCost / 1000000000).ToString("F") + " Bil.";
-        }
-        else if (kulceSpdUpgCost >= 1000000000000)
-        {
-            kulcespdyouneeddollartext.text = "You Need $" + (kulceSpdUpgCost / 1000000000000).ToString("F") + " Tril.";
-        }
-        else if (kulceSpdUpgCost >= 1000000000000000)
-        {
-            kulcespdyouneeddollartext.text = "You Need $" + (kulceSpdUpgCost / 1000000000000000).ToString("F") + " Quadril.";
-        }
-        else if (kulceSpdUpgCost >= 1000000000000000000)
-        {
-            kulcespdyouneeddollartext.text = "You Need $" + (kulceSpdUpgCost / 1000000000000000000).ToString("F") + " Quintil.";
-        }
-        #endregion
-
-        #region kulce inc upg cost gösterim
-        if (kulceIncUpgCost < 1000000)
-        {
-            kulceIncUpgCostText.text = string.Format("${0:#.0}", kulceIncUpgCost);
-        }
-        else if (kulceIncUpgCost >= 1000000)
-        {
-            kulceIncUpgCostText.text = (kulceIncUpgCost / 1000000).ToString("F") + " Mil.";
-        }
-        else if (kulceIncUpgCost >= 1000000000)
-        {
-            kulceIncUpgCostText.text = (kulceIncUpgCost / 1000000000).ToString("F") + " Bil.";
-        }
-        else if (kulceIncUpgCost >= 1000000000000)
-        {
-            kulceIncUpgCostText.text = (kulceIncUpgCost / 1000000000000).ToString("F") + " Tril.";
-        }
-        else if (kulceIncUpgCost >= 1000000000000000)
-        {
-            kulceIncUpgCostText.text = (kulceIncUpgCost / 1000000000000000).ToString("F") + " Quadril.";
-        }
-        else if (kulceIncUpgCost >= 1000000000000000000)
-        {
-            kulceIncUpgCostText.text = (kulceIncUpgCost / 1000000000000000000).ToString("F") + " Quintil.";
-        }
-        #endregion
-
-        #region you need $ cost gösterim income upgrade
-        if (kulceIncUpgCost < 1000000)
-        {
-            kulceincyouneeddollartext.text = string.Format("You Need ${0:#.0}", kulceIncUpgCost);
-        }
-        else if (kulceIncUpgCost >= 1000000)
-        {
-            kulceincyouneeddollartext.text = "You Need $" + (kulceIncUpgCost / 1000000).ToString("F") + " Mil.";
-        }
-        else if (kulceIncUpgCost >= 1000000000)
-        {
-            kulceincyouneeddollartext.text = "You Need $" + (kulceIncUpgCost / 1000000000).ToString("F") + " Bil.";
-        }
-        else if (kulceIncUpgCost >= 1000000000000)
-        {
-            kulceincyouneeddollartext.text = "You Need $" + (kulceIncUpgCost / 1000000000000).ToString("F") + " Tril.";
-        }
-        else if (kulceIncUpgCost >= 1000000000000000)
-        {
-            kulceincyouneeddollartext.text = "You Need $" + (kulceIncUpgCost / 1000000000000000).ToString("F") + " Quadril.";
-        }
-        else if (kulceIncUpgCost >= 1000000000000000000)
-        {
-            kulceincyouneeddollartext.text = "You Need $" + (kulceIncUpgCost / 1000000000000000000).ToString("F") + " Quintil.";
-        }
-        #endregion
-
-        //Çivi///////////////////////////////////////////
-
-        #region Çivi spd upg cost gösterim
-        if (civiSpdUpgCost < 1000000)
-        {
-            civiSpdUpgCostText.text = string.Format("${0:#.0}", civiSpdUpgCost);
-        }
-        else if (civiSpdUpgCost >= 1000000)
-        {
-            civiSpdUpgCostText.text = (civiSpdUpgCost / 1000000).ToString("F") + " Mil.";
-        }
-        else if (civiSpdUpgCost >= 1000000000)
-        {
-            civiSpdUpgCostText.text = (civiSpdUpgCost / 1000000000).ToString("F") + " Bil.";
-        }
-        else if (civiSpdUpgCost >= 1000000000000)
-        {
-            civiSpdUpgCostText.text = (civiSpdUpgCost / 1000000000000).ToString("F") + " Tril.";
-        }
-        else if (civiSpdUpgCost >= 1000000000000000)
-        {
-            civiSpdUpgCostText.text = (civiSpdUpgCost / 1000000000000000).ToString("F") + " Quadril.";
-        }
-        else if (civiSpdUpgCost >= 1000000000000000000)
-        {
-            civiSpdUpgCostText.text = (civiSpdUpgCost / 1000000000000000000).ToString("F") + " Quintil.";
-        }
-        #endregion
-
-        #region You need $ cost gösterim speed upgrade
-        if (civiSpdUpgCost < 1000000)
-        {
-            civispdyouneeddollartext.text = string.Format("You Need ${0:#.0}", civiSpdUpgCost);
-        }
-        else if (civiSpdUpgCost >= 1000000)
-        {
-            civispdyouneeddollartext.text = "You Need $" + (civiSpdUpgCost / 1000000).ToString("F") + " Mil.";
-        }
-        else if (civiSpdUpgCost >= 1000000000)
-        {
-            civispdyouneeddollartext.text = "You Need $" + (civiSpdUpgCost / 1000000000).ToString("F") + " Bil.";
-        }
-        else if (civiSpdUpgCost >= 1000000000000)
-        {
-            civispdyouneeddollartext.text = "You Need $" + (civiSpdUpgCost / 1000000000000).ToString("F") + " Tril.";
-        }
-        else if (civiSpdUpgCost >= 1000000000000000)
-        {
-            civispdyouneeddollartext.text = "You Need $" + (civiSpdUpgCost / 1000000000000000).ToString("F") + " Quadril.";
-        }
-        else if (civiSpdUpgCost >= 1000000000000000000)
-        {
-            civispdyouneeddollartext.text = "You Need $" + (civiSpdUpgCost / 1000000000000000000).ToString("F") + " Quintil.";
-        }
-        #endregion
-
-        #region civi inc upg upg cost gösterim
-        if (civiIncUpgCost < 1000000)
-        {
-            civiIncUpgCostText.text = string.Format("${0:#.0}", civiIncUpgCost);
-        }
-        else if (civiIncUpgCost >= 1000000)
-        {
-            civiIncUpgCostText.text = (civiIncUpgCost / 1000000).ToString("F") + " Mil.";
-        }
-        else if (civiIncUpgCost >= 1000000000)
-        {
-            civiIncUpgCostText.text = (civiIncUpgCost / 1000000000).ToString("F") + " Bil.";
-        }
-        else if (civiIncUpgCost >= 1000000000000)
-        {
-            civiIncUpgCostText.text = (civiIncUpgCost / 1000000000000).ToString("F") + " Tril.";
-        }
-        else if (civiIncUpgCost >= 1000000000000000)
-        {
-            civiIncUpgCostText.text = (civiIncUpgCost / 1000000000000000).ToString("F") + " Quadril.";
-        }
-        else if (civiIncUpgCost >= 1000000000000000000)
-        {
-            civiIncUpgCostText.text = (civiIncUpgCost / 1000000000000000000).ToString("F") + " Quintil.";
-        }
-        #endregion
-
-        #region you need $ cost gösterim income upgrade
-        if (civiIncUpgCost < 1000000)
-        {
-            kulceincyouneeddollartext.text = string.Format("You Need ${0:#.0}", civiIncUpgCost);
-        }
-        else if (civiIncUpgCost >= 1000000)
-        {
-            civiincyouneeddollartext.text = "You Need $" + (civiIncUpgCost / 1000000).ToString("F") + " Mil.";
-        }
-        else if (civiIncUpgCost >= 1000000000)
-        {
-            civiincyouneeddollartext.text = "You Need $" + (civiIncUpgCost / 1000000000).ToString("F") + " Bil.";
-        }
-        else if (civiIncUpgCost >= 1000000000000)
-        {
-            civiincyouneeddollartext.text = "You Need $" + (civiIncUpgCost / 1000000000000).ToString("F") + " Tril.";
-        }
-        else if (civiIncUpgCost >= 1000000000000000)
-        {
-            civiincyouneeddollartext.text = "You Need $" + (civiIncUpgCost / 1000000000000000).ToString("F") + " Quadril.";
-        }
-        else if (civiIncUpgCost >= 1000000000000000000)
-        {
-            civiincyouneeddollartext.text = "You Need $" + (civiIncUpgCost / 1000000000000000000).ToString("F") + " Quintil.";
-        }
-        #endregion
-
-        //Diþli/////////////////////////////////////////
-
-        #region Diþli spd upg cost gösterim
-        if (disliSpdUpgCost < 1000000)
-        {
-            disliSpdUpgCostText.text = string.Format("${0:#.0}", disliSpdUpgCost);
-        }
-        else if (disliSpdUpgCost >= 1000000)
-        {
-            disliSpdUpgCostText.text = (disliSpdUpgCost / 1000000).ToString("F") + " Mil.";
-        }
-        else if (disliSpdUpgCost >= 1000000000)
-        {
-            disliSpdUpgCostText.text = (disliSpdUpgCost / 1000000000).ToString("F") + " Bil.";
-        }
-        else if (disliSpdUpgCost >= 1000000000000)
-        {
-            disliSpdUpgCostText.text = (disliSpdUpgCost / 1000000000000).ToString("F") + " Tril.";
-        }
-        else if (disliSpdUpgCost >= 1000000000000000)
-        {
-            disliSpdUpgCostText.text = (disliSpdUpgCost / 1000000000000000).ToString("F") + " Quadril.";
-        }
-        else if (disliSpdUpgCost >= 1000000000000000000)
-        {
-            disliSpdUpgCostText.text = (disliSpdUpgCost / 1000000000000000000).ToString("F") + " Quintil.";
-        }
-        #endregion
-
-        #region You need $ cost gösterim income upgrade
-        if (disliSpdUpgCost < 1000000)
-        {
-            dislispdyouneeddollartext.text = string.Format("You Need ${0:#.0}", disliSpdUpgCost);
-        }
-        else if (disliSpdUpgCost >= 1000000)
-        {
-            dislispdyouneeddollartext.text = "You Need $" + (disliSpdUpgCost / 1000000).ToString("F") + " Mil.";
-        }
-        else if (disliSpdUpgCost >= 1000000000)
-        {
-            dislispdyouneeddollartext.text = "You Need $" + (disliSpdUpgCost / 1000000000).ToString("F") + " Bil.";
-        }
-        else if (disliSpdUpgCost >= 1000000000000)
-        {
-            dislispdyouneeddollartext.text = "You Need $" + (disliSpdUpgCost / 1000000000000).ToString("F") + " Tril.";
-        }
-        else if (disliSpdUpgCost >= 1000000000000000)
-        {
-            dislispdyouneeddollartext.text = "You Need $" + (disliSpdUpgCost / 1000000000000000).ToString("F") + " Quadril.";
-        }
-        else if (disliSpdUpgCost >= 1000000000000000000)
-        {
-            dislispdyouneeddollartext.text = "You Need $" + (disliSpdUpgCost / 1000000000000000000).ToString("F") + " Quintil.";
-        }
-        #endregion
-
-        #region Disli inc upg cost gösterim
-        if (disliIncUpgCost < 1000000)
-        {
-            disliIncUpgCostText.text = string.Format("${0:#.0}", disliIncUpgCost);
-        }
-        else if (disliIncUpgCost >= 1000000)
-        {
-            disliIncUpgCostText.text = (disliIncUpgCost / 1000000).ToString("F") + " Mil.";
-        }
-        else if (disliIncUpgCost >= 1000000000)
-        {
-            disliIncUpgCostText.text = (disliIncUpgCost / 1000000000).ToString("F") + " Bil.";
-        }
-        else if (disliIncUpgCost >= 1000000000000)
-        {
-            disliIncUpgCostText.text = (disliIncUpgCost / 1000000000000).ToString("F") + " Tril.";
-        }
-        else if (disliIncUpgCost >= 1000000000000000)
-        {
-            disliIncUpgCostText.text = (disliIncUpgCost / 1000000000000000).ToString("F") + " Quadril.";
-        }
-        else if (disliIncUpgCost >= 1000000000000000000)
-        {
-            disliIncUpgCostText.text = (disliIncUpgCost / 1000000000000000000).ToString("F") + " Quintil.";
-        }
-        #endregion
-
-        #region You need $ cost gösterim income upgrade
-        if (disliIncUpgCost < 1000000)
-        {
-            disliincyouneeddollartext.text = string.Format("You Need ${0:#.0}", disliIncUpgCost);
-        }
-        else if (disliIncUpgCost >= 1000000)
-        {
-            disliincyouneeddollartext.text = "You Need $" + (disliIncUpgCost / 1000000).ToString("F") + " Mil.";
-        }
-        else if (disliIncUpgCost >= 1000000000)
-        {
-            disliincyouneeddollartext.text = "You Need $" + (disliIncUpgCost / 1000000000).ToString("F") + " Bil.";
-        }
-        else if (disliIncUpgCost >= 1000000000000)
-        {
-            disliincyouneeddollartext.text = "You Need $" + (disliIncUpgCost / 1000000000000).ToString("F") + " Tril.";
-        }
-        else if (disliIncUpgCost >= 1000000000000000)
-        {
-            disliincyouneeddollartext.text = "You Need $" + (disliIncUpgCost / 1000000000000000).ToString("F") + " Quadril.";
-        }
-        else if (disliIncUpgCost >= 1000000000000000000)
-        {
-            disliincyouneeddollartext.text = "You Need $" + (disliIncUpgCost / 1000000000000000000).ToString("F") + " Quintil.";
-        }
+        //income yükseltmeleri
+        upgradeCostGosterimler(woodIncUpgCost, woodIncUpgCostText, "");
+        upgradeCostGosterimler(demirOreIncUpgCost, demirOreIncUpgCostText, "");
+        upgradeCostGosterimler(timberIncUpgCost, timberIncUpgCostText, "");
+        upgradeCostGosterimler(kulceIncUpgCost, kulceIncUpgCostText, "");
+        upgradeCostGosterimler(civiIncUpgCost, civiIncUpgCostText, "");
+        upgradeCostGosterimler(disliIncUpgCost, disliIncUpgCostText, "");
+        //income yükseltmesine para yetmiyorsa
+        upgradeCostGosterimler(woodIncUpgCost, woodincyouneeddollartext, "You Need $");
+        upgradeCostGosterimler(demirOreIncUpgCost, demirOreincyouneeddollartext, "You Need $");
+        upgradeCostGosterimler(timberIncUpgCost, timberincyouneeddollartext, "You Need $");
+        upgradeCostGosterimler(kulceIncUpgCost, kulceincyouneeddollartext, "You Need $");
+        upgradeCostGosterimler(civiIncUpgCost, civiincyouneeddollartext, "You Need $");
+        upgradeCostGosterimler(disliIncUpgCost, disliincyouneeddollartext, "You Need $");
         #endregion
 
         #endregion//Upgrade Textleri
@@ -1175,486 +523,104 @@ public class Menu : MonoBehaviour
         #region Para yetmiyorsa butonlarý kapat
 
         #region Odun
-
-        #region Odun menajer satýn al butonu
-        if (GameManager.gm.anaPara < 200)
-        {
-            buyWoodmanBtn.SetActive(false);
-        }
-        else
-        {
-            buyWoodmanBtn.SetActive(true);
-        }
-        if (odunMenajerAlindi == true)
-        {
-            buyWoodmanBtn.SetActive(false);
-        }
-        #endregion
-
-        #region Odun Hýz Upg satýn al butonu
-        if (GameManager.gm.anaPara < woodSpdUpgCost)
-        {
-            woodSpdUpgBuyBtn.SetActive(false);
-        }
-        else
-        {
-            woodSpdUpgBuyBtn.SetActive(true);
-        }
-        #endregion
-
-        #region odun income upg butonu
-        if (GameManager.gm.anaPara >= woodIncUpgCost)
-        {
-            woodincUpgBtn.SetActive(true);
-        }
-        else
-        {
-            woodincUpgBtn.SetActive(false);
-        }
-        #endregion
-
+        //Menajer al butonu, para yetmiyorsa veya menajer alýndýysa kapat
+        buyMenajerButon(odunMenajerAlindi, buyWoodmanBtn, 200);        
+        //Külçe hýz ve income upgrade butonlarý, para yetmiyorsa kapalý tut
+        upgButon(woodSpdUpgCost, woodSpdUpgBuyBtn);
+        upgButon(woodIncUpgCost, woodincUpgBtn);
         #endregion
 
         #region Demir
-
-        #region Hire miner buton
-        if (demirOreMenajerAlindi == true)
-        {
-            buyMinerBtn.SetActive(false);
-        }
-        else
-        {
-            if (GameManager.gm.anaPara >= 500)
-            {
-                buyMinerBtn.SetActive(true);
-            }
-            else
-            {
-                buyMinerBtn.SetActive(false);
-            }
-        }
-        
-        #endregion
-
-        #region demir ore hýz upg satýn al butonu
-        if (GameManager.gm.anaPara < demirOreSpdUpgCost)
-        {
-            demirOreSpdUpgBuyBtn.SetActive(false);
-        }
-        else
-        {
-            demirOreSpdUpgBuyBtn.SetActive(true);
-        }
-        #endregion
-
-        #region Demir Ore income upg satýn al butonu
-        if (GameManager.gm.anaPara >= demirOreIncUpgCost)
-        {
-            demirOreIncUpgBuyBtn.SetActive(true);
-        }
-        else
-        {
-            demirOreIncUpgBuyBtn.SetActive(false);
-        }
-        #endregion
-
+        //Menajer al butonu, para yetmiyorsa veya menajer alýndýysa kapat
+        buyMenajerButon(demirOreMenajerAlindi, buyMinerBtn, 500);        
+        //Külçe hýz ve income upgrade butonlarý, para yetmiyorsa kapalý tut
+        upgButon(demirOreSpdUpgCost, demirOreSpdUpgBuyBtn);
+        upgButon(demirOreIncUpgCost, demirOreIncUpgBuyBtn);
         #endregion
 
         #region Kereste
 
         #region Buy saw building button
-        if ((GameManager.gm.odunStok >= 100) && (GameManager.gm.anaPara >= 350))
-        {
-            buySawButton.SetActive(true);
-        }
-        else
-        {
-            buySawButton.SetActive(false);
-        }
-        if (keresteAlindi == true)
-        {
-            buySawButton.SetActive(false);
-        }
-        else
-        {
-            kerestefillbar.SetActive(false);
-        }
+        if ((GameManager.gm.odunStok >= 100) && (GameManager.gm.anaPara >= 350)) {buySawButton.SetActive(true);}
+        else {buySawButton.SetActive(false);}
+        if (keresteAlindi == true) {buySawButton.SetActive(false);}
+        else {kerestefillbar.SetActive(false);}
         #endregion
-
-        #region kereste hýz upg satýn al butonu
-        if (GameManager.gm.anaPara < timberSpdUpgCost)
-        {
-            timberSpdUpgBuyBtn.SetActive(false);
-        }
-        else
-        {
-            timberSpdUpgBuyBtn.SetActive(true);
-        }
-        #endregion        
-
-        #region kereste getiri upg butonu
-        if (GameManager.gm.anaPara >= timberIncUpgCost)
-        {
-            timberincUpgBtn.SetActive(true);
-        }
-        else
-        {
-            timberincUpgBtn.SetActive(false);
-        }
-        #endregion
-
-        #region Buy Carpenter butonu
-        if (keresteMenajerAlindi == true)
-        {
-            buyCarpenterBtn.SetActive(false);
-        }
-        else
-        {
-            if (GameManager.gm.anaPara < 1200)
-            {
-                buyCarpenterBtn.SetActive(false);
-            }
-            else
-            {
-                buyCarpenterBtn.SetActive(true);
-            }
-        }
-        #endregion
-
-        #region Menü Carpenter ünitesi
-        if (keresteAlindi == false)
-        {
-            carpenterUnite.SetActive(false);
-        }
-        else
-        {
-            carpenterUnite.SetActive(true);
-        }
-        #endregion
-
-        #region kereste üret butonu, odun yoksa
-        if (GameManager.gm.odunStok <= 0)
-        {
-            keresteUretButon.SetActive(false);
-        }
-        else
-        {
-            keresteUretButon.SetActive(true);
-        }
-        #endregion
-
-        #region kereste ui, bina alýnýnca açýlacak
-        if (keresteAlindi == false)
-        {
-            keresteUi.SetActive(false);
-            keresteSatUnite.SetActive(false);
-        }
-        else
-        {
-            keresteUi.SetActive(true);
-            keresteSatUnite.SetActive(true);
-        }
-        #endregion
-
+        
+        upgButon(timberSpdUpgCost, timberSpdUpgBuyBtn); //Külçe hýz upgrade butonu, para yetmiyorsa kapalý tut
+        upgButon(timberIncUpgCost, timberincUpgBtn);  //Külçe income upgrade butonu, para yetmiyorsa kapalý tut
+        buyMenajerButon(keresteMenajerAlindi, buyCarpenterBtn, 1200);  //Menajer al butonu, para yetmiyorsa veya menajer alýndýysa kapat        
+        menajerUniteleri(keresteAlindi, carpenterUnite);  //Menü çivi menajer ünitesi, bina alýnmadýysa kapalý kalsýn        
+        uretimButonubirdegisken(GameManager.gm.odunStok, keresteUretButon);  //Kereste üret butonu, odun yoksa        
+        uiGosterimleri(keresteAlindi, keresteUi, keresteSatUnite);  //Diþli ui, bina alýnýnca açýlacak
         #endregion
 
         #region Külçe
+        //Külçe bina al butonu
+        binaAlButonuUcDegis(GameManager.gm.demirOreStok, 100, GameManager.gm.odunStok, 50, 850, buyOvenButton, kulceAlindi, kulcefillbar);
 
-        #region Buy Oven building button
-        if ((GameManager.gm.demirOreStok >= 100) && (GameManager.gm.anaPara >= 850) && (GameManager.gm.odunStok >= 50))
-        {
-            buyOvenButton.SetActive(true);
-        }
-        else
-        {
-            buyOvenButton.SetActive(false);
-        }
-        if (kulceAlindi == true)
-        {
-            buyOvenButton.SetActive(false);
-        }
-        else
-        {
-            kulcefillbar.SetActive(false);
-        }
+        //Külçe hýz ve income upgrade butonlarý, para yetmiyorsa kapalý tut
+        upgButon(kulceSpdUpgCost, kulceSpdUpgBuyBtn);
+        upgButon(kulceIncUpgCost, kulceincUpgBtn);
+
+        //Menajer al butonu, para yetmiyorsa veya menajer alýndýysa kapat
+        buyMenajerButon(kulceMenajerAlindi, buyIronBakerBtn, 1600);
+
+        //Menü külçe menajer ünitesi, bina alýnmadýysa kapalý kalsýn
+        menajerUniteleri(kulceAlindi, ironBakerUnite);
+
+        //Külçe üret butonu, odun demirore yoksa
+        uretimButonuikidegisken(GameManager.gm.odunStok, GameManager.gm.demirOreStok, kulceUretButon);
+
+        //Külçe ui, bina alýnýnca açýlacak
+        uiGosterimleri(kulceAlindi, kulceUi, kulceSatUnite);
         #endregion
 
-        #region külçe hýz upg satýn al butonu
-        if (GameManager.gm.anaPara < kulceSpdUpgCost)
-        {
-            kulceSpdUpgBuyBtn.SetActive(false);
-        }
-        else
-        {
-            kulceSpdUpgBuyBtn.SetActive(true);
-        }
-        #endregion
+        #region Çivi        
+        //Çivi bina al butonu
+        binaAlButonuUcDegis(GameManager.gm.kulceStok, 120, GameManager.gm.odunStok, 75, 1250, buyNailButton, civiAlindi, civifillbar);
 
-        #region Külçe income upg butonu
-        if (GameManager.gm.anaPara >= kulceIncUpgCost)
-        {
-            kulceincUpgBtn.SetActive(true);
-        }
-        else
-        {
-            kulceincUpgBtn.SetActive(false);
-        }
-        #endregion
+        //Çivi hýz ve income upgrade butonlarý, para yetmiyorsa kapalý tut
+        upgButon(civiSpdUpgCost, civiSpdUpgBuyBtn);
+        upgButon(civiIncUpgCost, civiincUpgBtn);
 
-        #region Buy IronBaker buton
-        if (kulceMenajerAlindi == true)
-        {
-            buyIronBakerBtn.SetActive(false);
-        }
-        else
-        {
-            if (GameManager.gm.anaPara < 1600)
-            {
-                buyIronBakerBtn.SetActive(false);
-            }
-            else
-            {
-                buyIronBakerBtn.SetActive(true);
-            }
-        }
-        #endregion
+        //Menajer al butonu, para yetmiyorsa veya menajer alýndýysa kapat
+        buyMenajerButon(civiMenajerAlindi, buyNailMngrBtn, 2200);
 
-        #region Menü IronBaker ünitesi
-        if (kulceAlindi == false)
-        {
-            ironBakerUnite.SetActive(false);
-        }
-        else
-        {
-            ironBakerUnite.SetActive(true);
-        }
-        #endregion
+        //Menü çivi menajer ünitesi, bina alýnmadýysa kapalý kalsýn
+        menajerUniteleri(civiAlindi, civiMngrUnite);
 
-        #region Külçe üret butonu, odun demir yoksa
-        if ((GameManager.gm.odunStok <= 0) && (GameManager.gm.demirOreStok <= 0))
-        {
-            kulceUretButon.SetActive(false);
-        }
-        else
-        {
-            kulceUretButon.SetActive(true);
-        }
-        #endregion
+        //Çivi üret butonu, odun külçe yoksa
+        uretimButonuikidegisken(GameManager.gm.odunStok, GameManager.gm.kulceStok, civiUretButon);
 
-        #region Külçe ui, bina alýnýnca açýlacak
-        if (kulceAlindi == false)
-        {
-            kulceUi.SetActive(false);
-            kulceSatUnite.SetActive(false);
-        }
-        else
-        {
-            kulceUi.SetActive(true);
-            kulceSatUnite.SetActive(true);
-        }
-        #endregion
-
-        #endregion
-
-        #region Çivi
-
-        #region Buy Nail building button
-        if ((GameManager.gm.kulceStok >= 120) && (GameManager.gm.anaPara >= 1250) && (GameManager.gm.odunStok >= 75))
-        {
-            buyNailButton.SetActive(true);
-        }
-        else
-        {
-            buyNailButton.SetActive(false);
-        }
-        if (civiAlindi == true)
-        {
-            buyNailButton.SetActive(false);
-        }
-        else
-        {
-            civifillbar.SetActive(false);
-        }
-        #endregion
-
-        #region civi hýz upg satýn al butonu
-        if (GameManager.gm.anaPara < civiSpdUpgCost)
-        {
-            civiSpdUpgBuyBtn.SetActive(false);
-        }
-        else
-        {
-            civiSpdUpgBuyBtn.SetActive(true);
-        }
-        #endregion
-
-        #region civi income upg butonu
-        if (GameManager.gm.anaPara >= civiIncUpgCost)
-        {
-            civiincUpgBtn.SetActive(true);
-        }
-        else
-        {
-            civiincUpgBtn.SetActive(false);
-        }
-        #endregion
-
-        #region Buy civimngr buton
-        if (civiMenajerAlindi == true)
-        {
-            buyNailMngrBtn.SetActive(false);
-        }
-        else
-        {
-            if (GameManager.gm.anaPara < 2200)
-            {
-                buyNailMngrBtn.SetActive(false);
-            }
-            else
-            {
-                buyNailMngrBtn.SetActive(true);
-            }
-        }
-        #endregion
-
-        #region Menü CiviManager ünitesi
-        if (civiAlindi == false)
-        {
-            civiMngrUnite.SetActive(false);
-        }
-        else
-        {
-            civiMngrUnite.SetActive(true);
-        }
-        #endregion
-
-        #region civi üret butonu, odun külçe yoksa
-        if ((GameManager.gm.odunStok <= 0) | (GameManager.gm.kulceStok <= 0))
-        {
-            civiUretButon.SetActive(false);
-        }
-        else
-        {
-            civiUretButon.SetActive(true);
-        }
-        #endregion
-
-        #region civi ui, bina alýnýnca açýlacak
-        if (civiAlindi == false)
-        {
-            civiUi.SetActive(false);
-            civiSatUnite.SetActive(false);
-        }
-        else
-        {
-            civiUi.SetActive(true);
-            civiSatUnite.SetActive(true);
-        }
-        #endregion
-
+        //Çivi ui, bina alýnýnca açýlacak
+        uiGosterimleri(civiAlindi, civiUi, civiSatUnite);
         #endregion
 
         #region Diþli
+        //Diþli bina al butonu
+        binaAlButonuUcDegis(GameManager.gm.kulceStok, 150, GameManager.gm.odunStok, 100, 1500,buyGearButton, disliAlindi, dislifillbar);
+        
+        //Diþli hýz ve income upgrade butonlarý, para yetmiyorsa kapalý tut
+        upgButon(disliSpdUpgCost, disliSpdUpgBuyBtn);
+        upgButon(disliIncUpgCost, disliincUpgBtn);
+        
+        //Menajer al butonu, para yetmiyorsa veya menajer alýndýysa kapat
+        buyMenajerButon(disliMenajerAlindi, buyGearMngrBtn, 3000);
 
-        #region Buy Gear Building Button
-        if ((GameManager.gm.kulceStok >= 150) && (GameManager.gm.anaPara >= 1500) && (GameManager.gm.odunStok >= 100))
-        {
-            buyGearButton.SetActive(true);
-        }
-        else
-        {
-            buyGearButton.SetActive(false);
-        }
-        if (disliAlindi == true)
-        {
-            buyGearButton.SetActive(false);
-        }
-        else
-        {
-            dislifillbar.SetActive(false);
-        }
-        #endregion
+        //Menü diþli menajer ünitesi, bina alýnmadýysa kapalý kalsýn
+        menajerUniteleri(disliAlindi, disliMngrUnite);
+                
+        //diþli üret butonu, odun külçe yoksa
+        uretimButonuikidegisken(GameManager.gm.odunStok, GameManager.gm.kulceStok, disliUretButon);
 
-        #region disli hýz upg satýn al butonu
-        if (GameManager.gm.anaPara < disliSpdUpgCost)
-        {
-            disliSpdUpgBuyBtn.SetActive(false);
-        }
-        else
-        {
-            disliSpdUpgBuyBtn.SetActive(true);
-        }
-        #endregion
-
-        #region Diþli income upgrade button
-        if (GameManager.gm.anaPara >= disliIncUpgCost)
-        {
-            disliincUpgBtn.SetActive(true);
-        }
-        else
-        {
-            disliincUpgBtn.SetActive(false);
-        }
-        #endregion
-
-        #region Buy dislimngr buton
-        if (disliMenajerAlindi == true)
-        {
-            buyGearMngrBtn.SetActive(false);
-        }
-        else
-        {
-            if (GameManager.gm.anaPara < 2200)
-            {
-                buyGearMngrBtn.SetActive(false);
-            }
-            else
-            {
-                buyGearMngrBtn.SetActive(true);
-            }
-        }
-        #endregion
-
-        #region Menü dislimenager ünitesi
-        if (disliAlindi == false)
-        {
-            disliMngrUnite.SetActive(false);
-        }
-        else
-        {
-            disliMngrUnite.SetActive(true);
-        }
-        #endregion
-
-        #region Diþli üret butonu, odun külçe yoksa
-        if ((GameManager.gm.odunStok <= 0) | (GameManager.gm.kulceStok <= 0))
-        {
-            disliUretButon.SetActive(false);
-        }
-        else
-        {
-            disliUretButon.SetActive(true);
-        }
-        #endregion
-
-        #region Diþli ui, bina alýnýnca açýlacak
-        if (disliAlindi == false)
-        {
-            disliUi.SetActive(false);
-            disliSatUnite.SetActive(false);
-        }
-        else
-        {
-            disliUi.SetActive(true);
-            disliSatUnite.SetActive(true);
-        }
+        //Diþli ui, bina alýnýnca açýlacak
+        uiGosterimleri(disliAlindi, disliUi, disliSatUnite);
         #endregion
 
         #endregion
 
-        #endregion
-
-        #region woodSpeedUpgCost fiyat hesaplama
+        #region woodSpeedUpgCost fiyat hesaplama, KALDIRILACAK
         if (woodSpdUpgLvl == 0)
         {
             woodSpdUpgCost = 10;
@@ -1669,7 +635,7 @@ public class Menu : MonoBehaviour
         }        
         #endregion
 
-        #region woodIncomeUpgCost ilk üç level fiyatý
+        #region woodIncomeUpgCost ilk üç level fiyatý, KALDIRILACAK
         if (woodIncUpgLvl == 0)
         {
             woodIncUpgCost = 100;
@@ -1685,78 +651,20 @@ public class Menu : MonoBehaviour
         #endregion
 
         #region Tab ile dünyalar arasý geçiþ, esc ile menü açma
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            GameManager.gm.ChangeWorldsButton();
-        }
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            GameManager.gm.MenuButton();
-        }
+        if (Input.GetKeyDown(KeyCode.Tab)) {GameManager.gm.ChangeWorldsButton();}
+        if (Input.GetKeyDown(KeyCode.Escape)) {GameManager.gm.MenuButton();}
         #endregion
 
-        #region Save Load'da sorun çýkaranlarý düzeltmek
-        if (odunMenajerAlindi == true)
-        {
-            cutBtn.SetActive(false);
-        }
-        else
-        {
-            cutBtn.SetActive(true);
-        }
-        //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-        if (demirOreMenajerAlindi == true)
-        {
-            digBtn.SetActive(false);
-        }
-        else
-        {
-            digBtn.SetActive(true);
-        }
-        //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-        if (keresteAlindi == true)
-        {
-            keresteBinaCitleri.SetActive(false);
-            keresteBina.SetActive(true);
-        }
-        else
-        {
-            keresteBinaCitleri.SetActive(true);
-            keresteBina.SetActive(false);
-        }
-        //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-        if (kulceAlindi == true)
-        {
-            kulceBinaCitleri.SetActive(false);
-            kulceBina.SetActive(true);
-        }
-        else
-        {
-            kulceBinaCitleri.SetActive(true);
-            kulceBina.SetActive(false);
-        }
-        //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-        if (civiAlindi == true)
-        {
-            civiBinaCitleri.SetActive(false);
-            civiBina.SetActive(true);
-        }
-        else
-        {
-            civiBinaCitleri.SetActive(true);
-            civiBina.SetActive(false);
-        }
-        //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-        if (disliAlindi == true)
-        {
-            disliBinaCitleri.SetActive(false);
-            disliBina.SetActive(true);
-        }
-        else
-        {
-            disliBinaCitleri.SetActive(true);
-            disliBina.SetActive(false);
-        }
+        #region Save Load'da sorun çýkaranlarý düzeltmek        
+        //menajer alýndýysa üretim butonunu kapat, alýnmadýysa açýk tut
+        mgrButonKapat(odunMenajerAlindi, cutBtn);
+        mgrButonKapat(demirOreMenajerAlindi, digBtn);
+
+        //Bina alýnýnca çitleri kapat, binayý aç        
+        binaAlindi(keresteAlindi, keresteBinaCitleri, keresteBina);
+        binaAlindi(kulceAlindi, kulceBinaCitleri, kulceBina);
+        binaAlindi(civiAlindi, civiBinaCitleri, civiBina);
+        binaAlindi(disliAlindi, disliBinaCitleri, disliBina);
         #endregion
 
     }
@@ -2143,6 +1051,100 @@ public class Menu : MonoBehaviour
     }
     #endregion
 
+    #endregion
+
+    #endregion
+
+    #region Genel kullaným için fonskiyonlar
+
+        #region Save Load'da sorun çýkaranlar için fonskiyonlar
+
+    #region Menajer alýndý/üret tuþu
+    public void mgrButonKapat(bool mgralindi, GameObject cutBtn)
+    {
+        cutBtn.SetActive(!mgralindi);
+    }
+    #endregion
+
+    #region Bina alýndýysa çitleri kapat binayý aç
+    public void binaAlindi(bool binaalindi, GameObject binacitler, GameObject bina)
+    {        
+        binacitler.SetActive(!binaalindi);
+        bina.SetActive(binaalindi);
+    }
+    #endregion
+    #endregion
+
+        #region UI göstergeleri, bina alýnýnca açýlacaklar
+    public void uiGosterimleri(bool binaAlindi, GameObject binaUi, GameObject binaSatUnite)
+    {        
+        binaUi.SetActive(binaAlindi);
+        binaSatUnite.SetActive(binaAlindi);
+    }
+    #endregion
+
+        #region Gereksinimlerin durumuna göre üretim butonu
+    public void uretimButonuikidegisken(double stok1, double stok2, GameObject uretButon)
+    {
+        if ((stok1 <= 0) | (stok2 <= 0)) {uretButon.SetActive(false);}
+        else {uretButon.SetActive(true);}
+    }
+    public void uretimButonubirdegisken(double stok, GameObject uretButon)
+    {
+        if (stok <= 0) {uretButon.SetActive(false);}
+        else {uretButon.SetActive(true);}
+    }
+    #endregion
+
+        #region Menajer üniteleri, bina alýnmadýysa kapalý kalýyorlar
+    public void menajerUniteleri(bool binaalindi, GameObject binaMgrUnit)
+    {
+        binaMgrUnit.SetActive(binaalindi);
+    }
+    #endregion
+
+        #region Buy menajer buton, para yoksa veya menajer alýndýysa kapalý tut
+    public void buyMenajerButon(bool menajeralindi, GameObject buyMgrBtn, double mgrPara)
+    {
+        if (GameManager.gm.anaPara < mgrPara || menajeralindi == true) {buyMgrBtn.SetActive(false);}
+        else {buyMgrBtn.SetActive(true);}
+    }
+    #endregion
+
+        #region Upgrade Butonlarý, para upgrade'e yetmiyorsa kapat
+    public void upgButon(float upgCost, GameObject upgBtn)
+    {
+        if (GameManager.gm.anaPara >= upgCost) {upgBtn.SetActive(true);}
+        else {upgBtn.SetActive(false);}
+    }
+    #endregion
+
+        #region Bina satýn al butonu
+    public void binaAlButonuUcDegis(double gerek1, int gerek1miktar, double gerek2, int gerek2miktar, double para, GameObject binaAlButon, bool binaAlindi, GameObject fillbar)
+    {
+        if ((gerek1 >= gerek1miktar) && (GameManager.gm.anaPara >= para) && (gerek2 >= gerek2miktar)) {binaAlButon.SetActive(true);}
+        else {binaAlButon.SetActive(false);}
+        if (binaAlindi == true) {binaAlButon.SetActive(false);}
+        else {fillbar.SetActive(false);}
+    }
+    #endregion
+
+        #region Upgrade Cost Gösterimleri
+    public void upgradeCostGosterimler(float cost, Text costText, string basYazi)
+    {
+        if (cost < million)
+        {costText.text = string.Format(basYazi + "{0:#.0}", cost);}
+        else if (cost >= million)
+        {costText.text = basYazi + (cost / million).ToString("F") + " Mil.";}
+        else if (cost >= billion)
+        {costText.text = basYazi + (cost / billion).ToString("F") + " Bil.";}
+        else if (cost >= trillion)
+        {costText.text = basYazi + (cost / trillion).ToString("F") + " Tril.";}
+        else if (cost >= quadrillion)
+        {costText.text = basYazi + (cost / quadrillion).ToString("F") + " Quadril.";}
+        else if (cost >= quintillion)
+        { costText.text = basYazi + (cost / quintillion).ToString("F") + " Quintil."; }
+    }
     #endregion
 
     #endregion

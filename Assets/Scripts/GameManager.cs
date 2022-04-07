@@ -11,6 +11,14 @@ public class GameManager : MonoBehaviour
     public static GameManager gm;
     public static Menu menu;
 
+    #region Büyük sayý constantlarý
+    const double million = 1000000;
+    const double billion = 1000000000;
+    const double trillion = 1000000000000;
+    const double quadrillion = 1000000000000000;
+    const double quintillion = 1000000000000000000;
+    #endregion
+
     [TabGroup("Kasa")]
     public double anaPara;              //ana paramýz
     [TabGroup("Kasa")]
@@ -187,70 +195,12 @@ public class GameManager : MonoBehaviour
         }
         #endregion
 
-        #region Odun Textleri
-
-        #region odun Satbuton text gösterim
-        if ((odunStok * odunPara < 1000) && (odunStok * odunPara > 0))
-        {
-            SatButonText.text = string.Format("${0:#.0}", odunStok * odunPara);
-        }
-        else if ((odunStok * odunPara >= 1000) && (odunPara * odunStok < 1000000))
-        {
-            SatButonText.text = "$" + ((odunStok * odunPara) / 1000).ToString("F") + " K";
-        }
-        else if ((odunStok * odunPara >= 1000000) && (odunStok * odunPara < 1000000000))
-        {
-            SatButonText.text = "$" + ((odunStok * odunPara) / 1000000).ToString("F") + " Mil.";
-        }
-        else if ((odunStok * odunPara >= 1000000000) && (odunStok * odunPara < 1000000000000))
-        {
-            SatButonText.text = "$" + ((odunStok * odunPara) / 1000000000).ToString("F") + " Bil.";
-        }
-        else if ((odunStok * odunPara >= 1000000000000) && (odunStok * odunPara < 1000000000000000))
-        {
-            SatButonText.text = "$" + ((odunStok * odunPara) / 1000000000000).ToString("F") + " Tril.";
-        }
-        else if ((odunStok * odunPara >= 1000000000000000) && (odunStok * odunPara < 1000000000000000000))
-        {
-            SatButonText.text = "$" + ((odunStok * odunPara) / 1000000000000000).ToString("F") + " Quadril.";
-        }
-        else if ((odunStok * odunPara >= 1000000000000000000) && (odunStok * odunPara < 1000000000000000000000f))
-        {
-            SatButonText.text = "$" + ((odunStok * odunPara) / 1000000000000000000).ToString("F") + " Quintil.";
-        }
-        else if ((odunStok * odunPara) <= 0)
-        {
-            SatButonText.text = "$0";
-        }
-        #endregion
-
-        #region OdunSTok gösterim
-        if (odunStok < 1000000)
-        {
-            odunStokText.text = string.Format("{0:#}", odunStok);
-        }
-        else if ((odunStok >= 1000000) && (odunStok < 1000000000))
-        {
-            odunStokText.text = (odunStok / 1000000).ToString("F") + " Mil.";
-        }
-        else if ((odunStok >= 1000000000) && (odunStok < 1000000000000))
-        {
-            odunStokText.text = (odunStok / 1000000000).ToString("F") + " Bil.";
-        }
-        else if ((odunStok >= 1000000000000) && (odunStok < 1000000000000000))
-        {
-            odunStokText.text = (odunStok / 1000000000000).ToString("F") + " Tril.";
-        }
-        else if ((odunStok >= 1000000000000000) & (odunStok < 1000000000000000000))
-        {
-            odunStokText.text = (odunStok / 1000000000000000).ToString("F") + " Quadril.";
-        }
-        else if ((odunStok >= 1000000000000000000) && (odunStok < 1000000000000000000000f))
-        {
-            odunStokText.text = (odunStok / 1000000000000000000).ToString("F") + " Quintil.";
-        }
-        #endregion
-
+        #region Odun Textleri        
+        //Odun Sat buton text
+        textlerSatButon(odunStok, odunPara, SatButonText);
+        
+        //Odun stok gösterim
+        StokGosterimler(odunStok, odunStokText);
         #endregion
 
         #endregion
@@ -285,74 +235,12 @@ public class GameManager : MonoBehaviour
         }
         #endregion
 
-        #region Demir Textleri
+        #region Demir Textleri        
+        //Demir Ore stok Gösterim
+        StokGosterimler(demirOreStok, demirStokText);
 
-        #region DemirStok Gösterim
-        if (demirOreStok <= 0)
-        {
-            demirStokText.text = "0";
-        }
-        else if ((demirOreStok < 1000000) && (demirOreStok > 0))
-        {
-            demirStokText.text = string.Format("{0:#}", demirOreStok);
-        }
-        else if ((demirOreStok >= 1000000) && (demirOreStok < 1000000000))
-        {
-            demirStokText.text = (demirOreStok / 1000000).ToString("F") + " Mil.";
-        }
-        else if ((demirOreStok >= 1000000000) && (demirOreStok < 1000000000000))
-        {
-            demirStokText.text = (demirOreStok / 1000000000).ToString("F") + " Bil.";
-        }
-        else if ((demirOreStok >= 1000000000000) && (demirOreStok < 1000000000000000))
-        {
-            demirStokText.text = (demirOreStok / 1000000000000).ToString("F") + " Tril.";
-        }
-        else if ((demirOreStok >= 1000000000000000) & (demirOreStok < 1000000000000000000))
-        {
-            demirStokText.text = (demirOreStok / 1000000000000000).ToString("F") + " Quadril.";
-        }
-        else if ((demirOreStok >= 1000000000000000000) && (demirOreStok < 1000000000000000000000f))
-        {
-            demirStokText.text = (demirOreStok / 1000000000000000000).ToString("F") + " Quintil.";
-        }
-        #endregion
-
-        #region Demir SatButon Gösterim
-        if ((demirOreStok * demirOrePara < 1000) && (demirOreStok * demirOrePara > 0))
-        {
-            demirOreSatButonText.text = string.Format("${0:#.0}", demirOreStok * demirOrePara);
-        }
-        else if ((demirOreStok * demirOrePara >= 1000) && (demirOrePara * demirOreStok < 1000000))
-        {
-            demirOreSatButonText.text = "$" + ((demirOreStok * demirOrePara) / 1000).ToString("F") + " K";
-        }
-        else if ((demirOreStok * demirOrePara >= 1000000) && (demirOreStok * demirOrePara < 1000000000))
-        {
-            demirOreSatButonText.text = "$" + ((demirOreStok * demirOrePara) / 1000000).ToString("F") + " Mil.";
-        }
-        else if ((demirOreStok * demirOrePara >= 1000000000) && (demirOreStok * demirOrePara < 1000000000000))
-        {
-            demirOreSatButonText.text = "$" + ((demirOreStok * demirOrePara) / 1000000000).ToString("F") + " Bil.";
-        }
-        else if ((demirOreStok * demirOrePara >= 1000000000000) && (demirOreStok * demirOrePara < 1000000000000000))
-        {
-            demirOreSatButonText.text = "$" + ((demirOreStok * demirOrePara) / 1000000000000).ToString("F") + " Tril.";
-        }
-        else if ((demirOreStok * demirOrePara >= 1000000000000000) && (demirOreStok * demirOrePara < 1000000000000000000))
-        {
-            demirOreSatButonText.text = "$" + ((demirOreStok * demirOrePara) / 1000000000000000).ToString("F") + " Quadril.";
-        }
-        else if ((demirOreStok * demirOrePara >= 1000000000000000000) && (demirOreStok * demirOrePara < 1000000000000000000000f))
-        {
-            demirOreSatButonText.text = "$" + ((demirOreStok * demirOrePara) / 1000000000000000000).ToString("F") + " Quintil.";
-        }
-        else if ((demirOreStok * demirOrePara) <= 0)
-        {
-            demirOreSatButonText.text = "$0";
-        }
-        #endregion
-
+        //Demir Ore sat buton text
+        textlerSatButon(demirOreStok, demirOrePara, demirOreSatButonText);
         #endregion
 
         #endregion
@@ -418,74 +306,12 @@ public class GameManager : MonoBehaviour
         }
         #endregion
 
-        #region Kereste Textleri
+        #region Kereste Textleri        
+        //Kereste Stok gösterim
+        StokGosterimler(keresteStok, keresteStokText);
 
-        #region KeresteStok gösterim
-        if (keresteStok <= 0)
-        {
-            keresteStokText.text = "0";
-        }
-        else if ((keresteStok > 0) && (keresteStok < 1000000))
-        {
-            keresteStokText.text = string.Format("{0:#}", keresteStok);
-        }
-        else if ((keresteStok >= 1000000) && (keresteStok < 1000000000))
-        {
-            keresteStokText.text = (keresteStok / 1000000).ToString("F") + " Mil.";
-        }
-        else if ((keresteStok >= 1000000000) && (keresteStok < 1000000000000))
-        {
-            keresteStokText.text = (keresteStok / 1000000000).ToString("F") + " Bil.";
-        }
-        else if ((keresteStok >= 1000000000000) && (keresteStok < 1000000000000000))
-        {
-            keresteStokText.text = (keresteStok / 1000000000000).ToString("F") + " Tril.";
-        }
-        else if ((keresteStok >= 1000000000000000) & (keresteStok < 1000000000000000000))
-        {
-            keresteStokText.text = (keresteStok / 1000000000000000).ToString("F") + " Quadril.";
-        }
-        else if ((keresteStok >= 1000000000000000000) && (keresteStok < 1000000000000000000000f))
-        {
-            keresteStokText.text = (keresteStok / 1000000000000000000).ToString("F") + " Quintil.";
-        }
-        #endregion
-
-        #region Kereste sat buton text
-        if ((keresteStok * kerestePara < 1000) && (keresteStok * kerestePara > 0))
-        {
-            keresteSatButonText.text = string.Format("${0:#.0}", keresteStok * kerestePara);
-        }
-        else if ((keresteStok * kerestePara >= 1000) && (kerestePara * keresteStok < 1000000))
-        {
-            keresteSatButonText.text = "$" + ((keresteStok * kerestePara) / 1000).ToString("F") + " K";
-        }
-        else if ((keresteStok * kerestePara >= 1000000) && (keresteStok * kerestePara < 1000000000))
-        {
-            keresteSatButonText.text = "$" + ((keresteStok * kerestePara) / 1000000).ToString("F") + " Mil.";
-        }
-        else if ((keresteStok * kerestePara >= 1000000000) && (keresteStok * kerestePara < 1000000000000))
-        {
-            keresteSatButonText.text = "$" + ((keresteStok * kerestePara) / 1000000000).ToString("F") + " Bil.";
-        }
-        else if ((keresteStok * kerestePara >= 1000000000000) && (keresteStok * kerestePara < 1000000000000000))
-        {
-            keresteSatButonText.text = "$" + ((keresteStok * kerestePara) / 1000000000000).ToString("F") + " Tril.";
-        }
-        else if ((keresteStok * kerestePara >= 1000000000000000) && (keresteStok * kerestePara < 1000000000000000000))
-        {
-            keresteSatButonText.text = "$" + ((keresteStok * kerestePara) / 1000000000000000).ToString("F") + " Quadril.";
-        }
-        else if ((keresteStok * kerestePara >= 1000000000000000000) && (keresteStok * kerestePara < 1000000000000000000000f))
-        {
-            keresteSatButonText.text = "$" + ((keresteStok * kerestePara) / 1000000000000000000).ToString("F") + " Quintil.";
-        }
-        else if ((keresteStok * kerestePara) <= 0)
-        {
-            keresteSatButonText.text = "$0";
-        }
-        #endregion
-
+        //Kereste sat buton text
+        textlerSatButon(keresteStok, kerestePara, keresteSatButonText);
         #endregion
 
         #endregion
@@ -553,73 +379,11 @@ public class GameManager : MonoBehaviour
         #endregion
 
         #region Külçe Text
+        //Külçe stok gösterim
+        StokGosterimler(kulceStok, kulceStokText);        
 
-        #region KülçeStok gösterim
-        if (kulceStok <= 0)
-        {
-            kulceStokText.text = "0";
-        }
-        else if ((kulceStok > 0) && (kulceStok < 1000000))
-        {
-            kulceStokText.text = string.Format("{0:#}", kulceStok);
-        }
-        else if ((kulceStok >= 1000000) && (kulceStok < 1000000000))
-        {
-            kulceStokText.text = (kulceStok / 1000000).ToString("F") + " Mil.";
-        }
-        else if ((kulceStok >= 1000000000) && (kulceStok < 1000000000000))
-        {
-            kulceStokText.text = (kulceStok / 1000000000).ToString("F") + " Bil.";
-        }
-        else if ((kulceStok >= 1000000000000) && (kulceStok < 1000000000000000))
-        {
-            kulceStokText.text = (kulceStok / 1000000000000).ToString("F") + " Tril.";
-        }
-        else if ((kulceStok >= 1000000000000000) & (kulceStok < 1000000000000000000))
-        {
-            kulceStokText.text = (kulceStok / 1000000000000000).ToString("F") + " Quadril.";
-        }
-        else if ((kulceStok >= 1000000000000000000) && (kulceStok < 1000000000000000000000f))
-        {
-            kulceStokText.text = (kulceStok / 1000000000000000000).ToString("F") + " Quintil.";
-        }
-        #endregion
-
-        #region Külçe sat buton text
-        if ((kulceStok * kulcePara < 1000) && (kulceStok * kulcePara > 0))
-        {
-            kulceSatButonText.text = string.Format("${0:#.0}", kulceStok * kulcePara);
-        }
-        else if ((kulceStok * kulcePara >= 1000) && (kulcePara * kulceStok < 1000000))
-        {
-            kulceSatButonText.text = "$" + ((kulceStok * kulcePara) / 1000).ToString("F") + " K";
-        }
-        else if ((kulceStok * kulcePara >= 1000000) && (kulceStok * kulcePara < 1000000000))
-        {
-            kulceSatButonText.text = "$" + ((kulceStok * kulcePara) / 1000000).ToString("F") + " Mil.";
-        }
-        else if ((kulceStok * kulcePara >= 1000000000) && (kulceStok * kulcePara < 1000000000000))
-        {
-            kulceSatButonText.text = "$" + ((kulceStok * kulcePara) / 1000000000).ToString("F") + " Bil.";
-        }
-        else if ((kulceStok * kulcePara >= 1000000000000) && (kulceStok * kulcePara < 1000000000000000))
-        {
-            kulceSatButonText.text = "$" + ((kulceStok * kulcePara) / 1000000000000).ToString("F") + " Tril.";
-        }
-        else if ((kulceStok * kulcePara >= 1000000000000000) && (kulceStok * kulcePara < 1000000000000000000))
-        {
-            kulceSatButonText.text = "$" + ((kulceStok * kulcePara) / 1000000000000000).ToString("F") + " Quadril.";
-        }
-        else if ((kulceStok * kulcePara >= 1000000000000000000) && (kulceStok * kulcePara < 1000000000000000000000f))
-        {
-            kulceSatButonText.text = "$" + ((kulceStok * kulcePara) / 1000000000000000000).ToString("F") + " Quintil.";
-        }
-        else if ((kulceStok * kulcePara) <= 0)
-        {
-            kulceSatButonText.text = "$0";
-        }
-        #endregion
-
+        //Külçe sat buton text
+        textlerSatButon(kulceStok, kulcePara, kulceSatButonText);
         #endregion
 
         #endregion
@@ -687,73 +451,11 @@ public class GameManager : MonoBehaviour
         #endregion
 
         #region Çivi Text
+        //Çivi stok gösterim
+        StokGosterimler(civiStok, civiStokText);
 
-        #region ÇiviStok Gösterim
-        if (civiStok <= 0)
-        {
-            civiStokText.text = "0";
-        }
-        else if ((civiStok > 0) && (civiStok < 1000000))
-        {
-            civiStokText.text = string.Format("{0:#}", civiStok);
-        }
-        else if ((civiStok >= 1000000) && (civiStok < 1000000000))
-        {
-            civiStokText.text = (civiStok / 1000000).ToString("F") + " Mil.";
-        }
-        else if ((civiStok >= 1000000000) && (civiStok < 1000000000000))
-        {
-            civiStokText.text = (civiStok / 1000000000).ToString("F") + " Bil.";
-        }
-        else if ((civiStok >= 1000000000000) && (civiStok < 1000000000000000))
-        {
-            civiStokText.text = (civiStok / 1000000000000).ToString("F") + " Tril.";
-        }
-        else if ((civiStok >= 1000000000000000) & (civiStok < 1000000000000000000))
-        {
-            civiStokText.text = (civiStok / 1000000000000000).ToString("F") + " Quadril.";
-        }
-        else if ((civiStok >= 1000000000000000000) && (civiStok < 1000000000000000000000f))
-        {
-            civiStokText.text = (civiStok / 1000000000000000000).ToString("F") + " Quintil.";
-        }
-        #endregion
-
-        #region civi Sat Buton Text
-        if ((civiStok * civiPara < 1000) && (civiStok * civiPara > 0))
-        {
-            civiSatButonText.text = string.Format("${0:#.0}", civiStok * civiPara);
-        }
-        else if ((civiStok * civiPara >= 1000) && (civiPara * civiStok < 1000000))
-        {
-            civiSatButonText.text = "$" + ((civiStok * civiPara) / 1000).ToString("F") + " K";
-        }
-        else if ((civiStok * civiPara >= 1000000) && (civiStok * civiPara < 1000000000))
-        {
-            civiSatButonText.text = "$" + ((civiStok * civiPara) / 1000000).ToString("F") + " Mil.";
-        }
-        else if ((civiStok * civiPara >= 1000000000) && (civiStok * civiPara < 1000000000000))
-        {
-            civiSatButonText.text = "$" + ((civiStok * civiPara) / 1000000000).ToString("F") + " Bil.";
-        }
-        else if ((civiStok * civiPara >= 1000000000000) && (civiStok * civiPara < 1000000000000000))
-        {
-            civiSatButonText.text = "$" + ((civiStok * civiPara) / 1000000000000).ToString("F") + " Tril.";
-        }
-        else if ((civiStok * civiPara >= 1000000000000000) && (civiStok * civiPara < 1000000000000000000))
-        {
-            civiSatButonText.text = "$" + ((civiStok * civiPara) / 1000000000000000).ToString("F") + " Quadril.";
-        }
-        else if ((civiStok * civiPara >= 1000000000000000000) && (civiStok * civiPara < 1000000000000000000000f))
-        {
-            civiSatButonText.text = "$" + ((civiStok * civiPara) / 1000000000000000000).ToString("F") + " Quintil.";
-        }
-        else if ((civiStok * civiPara) <= 0)
-        {
-            civiSatButonText.text = "$0";
-        }
-        #endregion
-
+        //Çivi sat buton text
+        textlerSatButon(civiStok, civiPara, civiSatButonText);
         #endregion
 
         #endregion
@@ -763,6 +465,7 @@ public class GameManager : MonoBehaviour
         #region Diþli
 
         #region Diþli Üretim
+        //Uretimler(Menu.menu.disliMenajerAlindi, disliUretimBool, Menu.menu.dislitimer, Menu.menu.disliZamanCarpan, Menu.menu.disliTime, Menu.menu.disliFillbar, disliFillbarYuzdeText, disliAnimator, disliStok, odunStok, kulceStok, Menu.menu.disliUretButon);
         if (Menu.menu.disliMenajerAlindi == false)//menajer yokken burasý
         {
             if (disliUretimBool == true)
@@ -821,73 +524,11 @@ public class GameManager : MonoBehaviour
         #endregion
 
         #region Diþli Text
+        //Diþli Stok Gösterim
+        StokGosterimler(disliStok, disliStokText);
 
-        #region DiþliStok Gösterim
-        if (disliStok <= 0)
-        {
-            disliStokText.text = "0";
-        }
-        else if ((disliStok > 0) && (disliStok < 1000000))
-        {
-            disliStokText.text = string.Format("{0:#}", disliStok);
-        }
-        else if ((disliStok >= 1000000) && (disliStok < 1000000000))
-        {
-            disliStokText.text = (disliStok / 1000000).ToString("F") + " Mil.";
-        }
-        else if ((disliStok >= 1000000000) && (disliStok < 1000000000000))
-        {
-            disliStokText.text = (disliStok / 1000000000).ToString("F") + " Bil.";
-        }
-        else if ((disliStok >= 1000000000000) && (disliStok < 1000000000000000))
-        {
-            disliStokText.text = (disliStok / 1000000000000).ToString("F") + " Tril.";
-        }
-        else if ((disliStok >= 1000000000000000) & (disliStok < 1000000000000000000))
-        {
-            disliStokText.text = (disliStok / 1000000000000000).ToString("F") + " Quadril.";
-        }
-        else if ((disliStok >= 1000000000000000000) && (disliStok < 1000000000000000000000f))
-        {
-            disliStokText.text = (disliStok / 1000000000000000000).ToString("F") + " Quintil.";
-        }
-        #endregion
-
-        #region Diþli Sat Buton Text
-        if ((disliStok * disliPara < 1000) && (disliStok * disliPara > 0))
-        {
-            disliSatButonText.text = string.Format("${0:#.0}", disliStok * disliPara);
-        }
-        else if ((disliStok * disliPara >= 1000) && (disliStok * disliPara < 1000000))
-        {
-            disliSatButonText.text = "$" + ((disliStok * disliPara) / 1000).ToString("F") + " K";
-        }
-        else if ((disliStok * disliPara >= 1000000) && (disliStok * disliPara < 1000000000))
-        {
-            disliSatButonText.text = "$" + ((disliStok * disliPara) / 1000000).ToString("F") + " Mil.";
-        }
-        else if ((disliStok * disliPara >= 1000000000) && (disliStok * disliPara < 1000000000000))
-        {
-            disliSatButonText.text = "$" + ((disliStok * disliPara) / 1000000000).ToString("F") + " Bil.";
-        }
-        else if ((disliStok * disliPara >= 1000000000000) && (disliStok * disliPara < 1000000000000000))
-        {
-            disliSatButonText.text = "$" + ((disliStok * disliPara) / 1000000000000).ToString("F") + " Tril.";
-        }
-        else if ((disliStok * disliPara >= 1000000000000000) && (disliStok * disliPara < 1000000000000000000))
-        {
-            disliSatButonText.text = "$" + ((disliStok * disliPara) / 1000000000000000).ToString("F") + " Quadril.";
-        }
-        else if ((disliStok * disliPara >= 1000000000000000000) && (disliStok * disliPara < 1000000000000000000000f))
-        {
-            disliSatButonText.text = "$" + ((disliStok * disliPara) / 1000000000000000000).ToString("F") + " Quintil.";
-        }
-        else if ((disliStok * disliPara) <= 0)
-        {
-            disliSatButonText.text = "$0";
-        }
-        #endregion
-
+        //Diþli Sat Buton Text        
+        textlerSatButon(disliStok, disliPara, disliSatButonText);
         #endregion
 
         #endregion
@@ -896,62 +537,15 @@ public class GameManager : MonoBehaviour
 
 
         #region Textler
+        // anaPara gösterim
+        textlerBuyukSayilar(anaPara, cuzdanText);
 
-        #region AnaPara gösterim
-        if (anaPara < 1000000)
-        {
-            cuzdanText.text = string.Format("${0:#.0}", anaPara);
-        }
-        else if ((anaPara >= 1000000) && (anaPara < 1000000000))
-        {
-            cuzdanText.text = (anaPara / 1000000).ToString("F") + " Mil.";
-        }
-        else if ((anaPara >= 1000000000)&&(anaPara< 1000000000000))
-        {
-            cuzdanText.text = (anaPara / 1000000000).ToString("F") + " Bil.";
-        }
-        else if ((anaPara >= 1000000000000)&&(anaPara< 1000000000000000))
-        {
-            cuzdanText.text = (anaPara / 1000000000000).ToString("F") + " Tril.";
-        }
-        else if ((anaPara >= 1000000000000000)&(anaPara< 1000000000000000000))
-        {
-            cuzdanText.text = (anaPara / 1000000000000000).ToString("F") + " Quadril.";
-        }
-        else if ((anaPara >= 1000000000000000000)&&(anaPara< 1000000000000000000000f))
-        {
-            cuzdanText.text = (anaPara / 1000000000000000000).ToString("F") + " Quintil.";
-        }
-        #endregion       
-
-        #region eðer sýfýrsa textler bozulmasýn
-        if (odunStok <= 0)
-        {
-            odunStok = 0;
-            odunStokText.text = "0";
-        }
-        if (anaPara <= 0)
-        {
-            anaPara = 0;
-            cuzdanText.text = "$0";
-        }
-        if (kulceStok <= 0)
-        {
-            kulceStok = 0;
-            kulceStokText.text = "0";
-        }
-        if (civiStok <= 0)
-        {
-            civiStok = 0;
-            civiStokText.text = "0";
-        }
-        if (disliStok <= 0)
-        {
-            disliStok = 0;
-            disliStokText.text = "0";
-        }
-        #endregion
-
+        //Sýfýrsa textler bozulmasýn        
+        SifirsaBozma(anaPara, cuzdanText);
+        SifirsaBozma(odunStok, odunStokText);
+        SifirsaBozma(kulceStok, kulceStokText);
+        SifirsaBozma(disliStok, disliStokText);
+        SifirsaBozma(civiStok, civiStokText);
         #endregion
 
         #region Dünyaya göre kamera pozisyonu ve gui
@@ -1151,14 +745,145 @@ public class GameManager : MonoBehaviour
 
     #region Test butonu
     public void KaynakEkle()
+    {        
+        kaynakEkle = !kaynakEkle;
+    }
+    #endregion
+
+    #endregion
+
+    #region Text Fonksiyonlarý
+
+    #region Büyük sayýlar
+    public void textlerBuyukSayilar(double Degisen, Text DegisenText)
     {
-        if (kaynakEkle == false)
+        if (Degisen < million)
+        {DegisenText.text = string.Format("${0:#.0}", Degisen);}
+        else if ((Degisen >= million) && (Degisen < billion))
+        {DegisenText.text = (Degisen / million).ToString("F") + " Mil.";}
+        else if ((Degisen >= billion) && (Degisen < trillion))
+        {DegisenText.text = (Degisen / billion).ToString("F") + " Bil.";}
+        else if ((Degisen >= trillion) && (Degisen < quadrillion))
+        {DegisenText.text = (Degisen / trillion).ToString("F") + " Tril.";}
+        else if ((Degisen >= quadrillion) & (Degisen < quintillion))
+        {DegisenText.text = (Degisen / quadrillion).ToString("F") + " Quadril.";}
+        else if ((Degisen >= quintillion) && (Degisen < 1000000000000000000000f))
+        {DegisenText.text = (Degisen / quintillion).ToString("F") + " Quintil.";}
+        else if (Degisen <= 0)
+        {DegisenText.text = "0";}
+    }
+    #endregion
+
+    #region Büyük sayýlar sat buton text
+    public void textlerSatButon(double stok, double para, Text satText)
+    {
+        if ((stok * para < 1000) && (stok * para > 0))
+        {satText.text = string.Format("${0:#.0}", stok * para);}
+        else if ((stok * para >= 1000) && (stok * para < million))
+        {satText.text = "$" + ((stok * para) / 1000).ToString("F") + " K";}
+        else if ((stok * para >= million) && (stok * para < billion))
+        {satText.text = "$" + ((stok * para) / million).ToString("F") + " Mil.";}
+        else if ((stok * para >= billion) && (stok * para < trillion))
+        {satText.text = "$" + ((stok * para) / billion).ToString("F") + " Bil.";}
+        else if ((stok * para >= trillion) && (stok * para < quadrillion))
+        {satText.text = "$" + ((stok * para) / trillion).ToString("F") + " Tril.";}
+        else if ((stok * para >= quadrillion) && (stok * para < quintillion))
+        {satText.text = "$" + ((stok * para) / quadrillion).ToString("F") + " Quadril.";}
+        else if ((stok * para >= quintillion) && (stok * para < 1000000000000000000000f))
+        {satText.text = "$" + ((stok * para) / quintillion).ToString("F") + " Quintil.";}
+        else if ((stok * para) <= 0)
+        {satText.text = "$0";}
+    }
+    #endregion
+
+    #region Stok gösterimler
+    public void StokGosterimler(double stok, Text stoktext)
+    {
+        if (stok <= 0)
+        {stoktext.text = "0";}
+        else if ((stok > 0) && (stok < million))
+        {stoktext.text = string.Format("{0:#}", stok);}
+        else if ((stok >= million) && (stok < billion))
+        {stoktext.text = (stok / million).ToString("F") + " Mil.";}
+        else if ((stok >= billion) && (stok < trillion))
+        {stoktext.text = (stok / billion).ToString("F") + " Bil.";}
+        else if ((stok >= trillion) && (stok < quadrillion))
+        {stoktext.text = (stok / trillion).ToString("F") + " Tril.";}
+        else if ((stok >= quadrillion) & (stok < quintillion))
+        {stoktext.text = (stok / quadrillion).ToString("F") + " Quadril.";}
+        else if ((stok >= quintillion) && (stok < 1000000000000000000000f))
+        {stoktext.text = (stok / quintillion).ToString("F") + " Quintil.";}
+    }
+    #endregion
+
+    #region Uretimler, çalýþmýyor
+    public void Uretimler(bool mngrAlindiBool, bool uretBool, float timer, float zamancarpan, float time, Image fillbarImg, Text fillYuzdeText, Animator anim, double stok, double gerekstok1, double gerekstok2, GameObject uretbuton)
+    {
+        if (mngrAlindiBool == false)//menajer yokken burasý
         {
-            kaynakEkle = true;
+            if (uretBool == true)
+            {
+                #region Fillbar
+                timer += zamancarpan * Time.deltaTime; //fillbar dolumu
+                fillbarImg.fillAmount = timer / time;
+                fillYuzdeText.text = string.Format("%" + "{0:#}", ((timer / time) * 100));
+                #endregion
+
+                anim.enabled = true;
+
+                if (timer >= time) //fillbar dolduðunda
+                {
+                    timer = 0; //fillbarý sýfýrla
+                    stok += 1;
+                    uretBool = false;
+                }
+            }
+            else
+            {
+                fillYuzdeText.text = "%0";
+                fillbarImg.fillAmount = 0;
+                anim.enabled = false;
+            }
         }
-        else
+        else //menajer varken burasý
         {
-            kaynakEkle = false;
+            if ((gerekstok1 >= 1) && (gerekstok2 >= 1))
+            {
+                uretBool = true;
+                uretbuton.SetActive(false);
+                anim.enabled = true;
+
+                #region Fillbar
+                timer += zamancarpan * Time.deltaTime; //fillbar dolumu
+                fillbarImg.fillAmount = timer / time;
+                fillYuzdeText.text = string.Format("%" + "{0:#}", ((timer / time) * 100));
+                #endregion
+
+                if (timer >= time) //fillbar dolduðunda
+                {
+                    timer = 0; //fillbarý sýfýrla
+                    gerekstok1 -= 1;
+                    gerekstok2 -= 1;
+                    stok += 1;
+                }
+            }
+            else
+            {
+                fillbarImg.fillAmount = 0;
+                fillYuzdeText.text = "%0";
+                anim.enabled = false;
+            }
+        }
+    }
+    #endregion
+
+    #region Eðer sýfýrsa textler bozulmasýn
+    public void SifirsaBozma(double degisen, Text degisenText)
+    {
+        if (degisen <= 0)
+        {
+            degisen = 0;
+            degisenText.text = "0";
         }
     }
     #endregion
