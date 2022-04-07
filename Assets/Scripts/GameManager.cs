@@ -30,6 +30,8 @@ public class GameManager : MonoBehaviour
     [TabGroup("Kasa")]
     public double kulceStok;            //stoktaki külçe sayýsý
     [TabGroup("Kasa")]
+    public double masaStok;           //stoktaki boyalý kereste sayýsý
+    [TabGroup("Kasa")]
     public double civiStok;             //stoktaki çivi sayýsý
     [TabGroup("Kasa")]
     public double disliStok;            //stoktaki diþli sayýsý
@@ -42,6 +44,8 @@ public class GameManager : MonoBehaviour
     public double demirOrePara;         //bir ham demirin kaç paraya satýlacaðýný tutuyor
     [TabGroup("Kasa")]
     public double kulcePara;            //bir külçenin kaç paraya satýlacaðýný tutuyor
+    [TabGroup("Kasa")]
+    public double masaPara;           //bir boyalý kerestenin kaç paraya satýlacaðýný tutuyor
     [TabGroup("Kasa")]
     public double civiPara;             //bir çivinin kaç paraya satýlacaðýný tutuyor
     [TabGroup("Kasa")]
@@ -79,6 +83,13 @@ public class GameManager : MonoBehaviour
     public Text kulceFillbarYuzdeText;  //fillbarýn yüzde kaç dolduðunu yazan text
     [Space]
     [TabGroup("Text")]
+    public Text masaSatButonText;     //sat tuþunda gelecek parayý yazan text
+    [TabGroup("Text")]
+    public Text masaStokText;         //boyalý kereste stoðu tutan text
+    [TabGroup("Text")]
+    public Text masaFillbarYuzdeText; //fillbarýn yüzde kaç dolduðunu yazan text
+    [Space]
+    [TabGroup("Text")]
     public Text civiSatButonText;       //sat tuþunda gelecek parayý yazan text
     [TabGroup("Text")]
     public Text civiStokText;           //civi stoðu tutan text
@@ -109,6 +120,8 @@ public class GameManager : MonoBehaviour
     [TabGroup("Bools")]
     public bool kulceUretimBool;        //tuþa basýldýðýnda true olarak update'teki üretim sürecini baþlatýyor
     [TabGroup("Bools")]
+    public bool masaUretimBool;       //tuþa basýldýðýnda true olarak update'teki üretim sürecini baþlatýyor
+    [TabGroup("Bools")]
     public bool civiUretimBool;         //tuþa basýldýðýnda true olarak update'teki üretim sürecini baþlatýyor
     [TabGroup("Bools")]
     public bool disliUretimBool;         //tuþa basýldýðýnda true olarak update'teki üretim sürecini baþlatýyor
@@ -122,6 +135,8 @@ public class GameManager : MonoBehaviour
     public Animator kazmaAnimator;      //animasyonu durdurup baþlatýyorum
     [TabGroup("Animator")]
     public Animator ovenAnimator;       //animasyonu durdurup baþlatýyorum
+    [TabGroup("Animator")]
+    public Animator cekicAnimator;      //animasyonu durdurup baþlatýyorum
     [TabGroup("Animator")]
     public Animator civiAnimator;       //animasyonu durdurup baþlatýyorum
     [TabGroup("Animator")]
@@ -390,6 +405,81 @@ public class GameManager : MonoBehaviour
 
         ////////////////////////////////////////////
 
+        #region Masa
+
+        #region Masa Üretim
+        if (Menu.menu.masaMenajerAlindi == false)//menajer yokken burasý
+        {
+            if (masaUretimBool == true)
+            {
+                #region Fillbar
+                Menu.menu.masatimer += Menu.menu.masaZamanCarpan * Time.deltaTime; //fillbar dolumu
+                Menu.menu.masaFillbar.fillAmount = Menu.menu.masatimer / Menu.menu.masaTime;
+                masaFillbarYuzdeText.text = string.Format("%" + "{0:#}", ((Menu.menu.masatimer / Menu.menu.masaTime) * 100));
+                #endregion
+
+                cekicAnimator.enabled = true;
+
+                if (Menu.menu.masatimer >= Menu.menu.masaTime) //fillbar dolduðunda
+                {
+                    Menu.menu.masatimer = 0; //fillbarý sýfýrla
+                    masaStok += 1;
+                    masaUretimBool = false;
+                }
+            }
+            else
+            {
+                masaFillbarYuzdeText.text = "%0";
+                Menu.menu.masaFillbar.fillAmount = 0;
+                cekicAnimator.enabled = false;
+            }
+        }
+        else //menajer varken burasý
+        {
+            if (anaPara >= 5)
+            {
+                masaUretimBool = true;
+                Menu.menu.masaUretButon.SetActive(false);
+                cekicAnimator.enabled = true;
+
+                #region Fillbar
+                Menu.menu.masatimer += Menu.menu.masaZamanCarpan * Time.deltaTime; //fillbar dolumu
+                Menu.menu.masaFillbar.fillAmount = Menu.menu.masatimer / Menu.menu.masaTime;
+                masaFillbarYuzdeText.text = string.Format("%" + "{0:#}", ((Menu.menu.masatimer / Menu.menu.masaTime) * 100));
+                #endregion
+
+                if (Menu.menu.masatimer >= Menu.menu.masaTime) //fillbar dolduðunda
+                {
+                    Menu.menu.masatimer = 0; //fillbarý sýfýrla
+                    masaStok += 1;                    
+                }
+                if (Menu.menu.masatimer == 0)
+                {
+                    civiStok -= 1;
+                    odunStok -= 1;
+                }
+            }
+            else
+            {
+                Menu.menu.masaFillbar.fillAmount = 0;
+                masaFillbarYuzdeText.text = "%0";
+                cekicAnimator.enabled = false;
+            }
+        }
+        #endregion
+
+        #region Masa Text
+        //Çivi stok gösterim
+        StokGosterimler(masaStok, masaStokText);
+
+        //Çivi sat buton text
+        textlerSatButon(masaStok, masaPara, masaSatButonText);
+        #endregion
+
+        #endregion
+
+        ////////////////////////////////////////////
+
         #region Çivi
 
         #region Çivi Üretim
@@ -544,6 +634,7 @@ public class GameManager : MonoBehaviour
         SifirsaBozma(anaPara, cuzdanText);
         SifirsaBozma(odunStok, odunStokText);
         SifirsaBozma(kulceStok, kulceStokText);
+        SifirsaBozma(masaStok, masaStokText);
         SifirsaBozma(disliStok, disliStokText);
         SifirsaBozma(civiStok, civiStokText);
         #endregion
@@ -570,6 +661,7 @@ public class GameManager : MonoBehaviour
             odunStok += 1;
             demirOreStok += 1;
             kulceStok += 1;
+            masaStok += 1;
             keresteStok += 1;
             civiStok += 1;
             disliStok += 1;
@@ -615,6 +707,18 @@ public class GameManager : MonoBehaviour
             odunStok -= 1;
         }
         kulceUretimBool = true;
+    }
+    #endregion
+
+    #region Masa Üretim
+    public void MasaUretim()
+    {
+        if (masaUretimBool == false)
+        {
+            civiStok -= 1;
+            odunStok -= 1;
+        }
+        masaUretimBool = true;
     }
     #endregion
 

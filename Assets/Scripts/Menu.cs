@@ -290,6 +290,85 @@ public class Menu : MonoBehaviour
     public float kulceTime;              //fillbar kontrolü
     #endregion
 
+    #region Masa
+    [BoxGroup("MASA")]
+    [FoldoutGroup("MASA/Booleans")]
+    public bool masaMenajerAlindi;             //menajer alýnýnca true olarak üretimi otomatikleþtiriyor
+    [FoldoutGroup("MASA/Booleans")]
+    public bool masaAlindi;                    //kereste binasý alýnýnca tuþu tekrar açýlmasýn diye
+
+
+    [FoldoutGroup("MASA/Upgrade Seviyeleri")]
+    public int masaSpdUpgLvl;                  //kereste gelir upg seviyesi
+    [FoldoutGroup("MASA/Upgrade Seviyeleri")]
+    public int masaIncUpgLvl;                  //kereste hýz upg seviyesi
+
+
+    [FoldoutGroup("MASA/Upgrade Ücretleri")]
+    public float masaSpdUpgCost;               //külçe hýz upg için gereken para
+    [FoldoutGroup("MASA/Upgrade Ücretleri")]
+    public float masaIncUpgCost;               //külçe gelir upg için gereken para
+
+
+    [FoldoutGroup("MASA/Speed upgrade textleri")]
+    public Text masaSpdUpgLvlText;             //kulce hýz upg ücret text
+    [FoldoutGroup("MASA/Speed upgrade textleri")]
+    public Text masaSpdUpgCostText;            //kulce hýz upg seviye text
+    [FoldoutGroup("MASA/Speed upgrade textleri")]
+    public Text masaspdyouneeddollartext;      //para yetmiyorsa ne kadar gerektiðini yazýyor
+
+
+    [FoldoutGroup("MASA/Income upgrade textleri")]
+    public Text masaIncUpgLvlText;             //kulce gelir upg seviye text
+    [FoldoutGroup("MASA/Income upgrade textleri")]
+    public Text masaincyouneeddollartext;      //para yetmiyorsa ne kadar gerektiðini yazýyor
+    [FoldoutGroup("MASA/Income upgrade textleri")]
+    public Text masaIncUpgCostText;            //kulce hýz upg ücret text
+
+
+    [FoldoutGroup("MASA/GameObjectler")]
+    public GameObject masaSpdUpgBuyBtn;        //hýz ve gelir upgrade butonlarý
+    [FoldoutGroup("MASA/GameObjectler")]
+    public GameObject masaincUpgBtn;           //hýz ve gelir upgrade butonlarý
+    [FoldoutGroup("MASA/GameObjectler")]
+    public GameObject buyMasaButton;            //Külçe binasý satýn al butonu
+    [FoldoutGroup("MASA/GameObjectler")]
+    public GameObject buyMasaciBtn;          //Külçe menajer satýn alma butonu
+    [FoldoutGroup("MASA/GameObjectler")]
+    public GameObject masaUretButon;           //bina alýnýnca külçe üreme butonu açýlacak
+    [Space]
+    [FoldoutGroup("MASA/GameObjectler")]
+    public GameObject masaHizUpgUnite;       //bina satýn alýnmamýþsa bu upgradeler gözükmüyor
+    [FoldoutGroup("MASA/GameObjectler")]
+    public GameObject masaIncUpgUnite;       //bina satýn alýnmamýþsa bu upgradeler gözükmüyor
+    [FoldoutGroup("MASA/GameObjectler")]
+    public GameObject masaSatUnite;          //bina satýn alýnmamýþsa kereste sat kýsmý gözükmüyor
+    [FoldoutGroup("MASA/GameObjectler")]
+    public GameObject masaciUnite;           //Bina satýn alýnmamýþsa marangoz al kýsmý gözükmüyor
+    [FoldoutGroup("MASA/GameObjectler")]
+    public GameObject masaMgrNotEnoMnyText;   //menajer için yeterli para yok text, menajer satýn alýnca setactive'ini kapatmak için
+    [FoldoutGroup("MASA/GameObjectler")]
+    public GameObject masaBinaNotEnoMnyText;  //bina için yeterli para yok text, menajer satýn alýnca setactive'ini kapatmak için
+    [FoldoutGroup("MASA/GameObjectler")]
+    public GameObject masaBinaCitleri;     //Kereste binasý satýn alýnýnca çitleri kapatacaðým
+    [FoldoutGroup("MASA/GameObjectler")]
+    public GameObject masaBina;            //çitler kalkýnca yerine gelecek bina, satýn alýnýnca açýlacak
+    [FoldoutGroup("MASA/GameObjectler")]
+    public GameObject masafillbar;         //kereste binasýnýn fillbarý ve butonu satýn alýnýnca açýlsýn diye
+    [FoldoutGroup("MASA/GameObjectler")]
+    public GameObject masaUi;              //bina satýn alýndýðýnda gözüksün
+
+
+    [FoldoutGroup("MASA/Fillbar")]
+    public Image masaFillbar;         //fillbar pngsi
+    [FoldoutGroup("MASA/Fillbar")]
+    public float masatimer;           //Bunu time'a böldürerek fillbarý kontrol ediyorum
+    [FoldoutGroup("MASA/Fillbar")]
+    public float masaZamanCarpan;     //fillbarýn ne kadar hýzlý dolacaðýný belirliyor
+    [FoldoutGroup("MASA/Fillbar")]
+    public float masaTime;              //fillbar kontrolü
+    #endregion
+
     #region Çivi
     [BoxGroup("CÝVÝ")]
     [FoldoutGroup("CÝVÝ/Booleans")]
@@ -469,6 +548,8 @@ public class Menu : MonoBehaviour
         demirOreIncUpgLvlText.text = "x" + demirOreIncUpgLvl;
         kulceSpdUpgLvlText.text = "x" + kulceSpdUpgLvl;
         kulceIncUpgLvlText.text = "x" + kulceIncUpgLvl;
+        masaSpdUpgLvlText.text = "x" + masaSpdUpgLvl;
+        masaIncUpgLvlText.text = "x" + masaIncUpgLvl;
         civiSpdUpgLvlText.text = "x" + civiSpdUpgLvl;
         civiIncUpgLvlText.text = "x" + civiIncUpgLvl;
         disliSpdUpgLvlText.text = "x" + disliSpdUpgLvl;
@@ -479,7 +560,9 @@ public class Menu : MonoBehaviour
         keresteHizUpgUnite.SetActive(keresteAlindi);
         keresteIncUpgUnite.SetActive(keresteAlindi);        
         kulceHizUpgUnite.SetActive(kulceAlindi);
-        kulceIncUpgUnite.SetActive(kulceAlindi);        
+        kulceIncUpgUnite.SetActive(kulceAlindi);
+        masaHizUpgUnite.SetActive(masaAlindi);
+        masaIncUpgUnite.SetActive(masaAlindi);
         civiHizUpgUnite.SetActive(civiAlindi);
         civiIncUpgUnite.SetActive(civiAlindi);        
         disliHizUpgUnite.SetActive(disliAlindi);
@@ -492,6 +575,7 @@ public class Menu : MonoBehaviour
         upgradeCostGosterimler(demirOreSpdUpgCost, demirOreSpdUpgCostText, "");
         upgradeCostGosterimler(timberSpdUpgCost, timberSpdUpgCostText, "");
         upgradeCostGosterimler(kulceSpdUpgCost, kulceSpdUpgCostText, "");
+        upgradeCostGosterimler(masaSpdUpgCost, masaSpdUpgCostText, "");
         upgradeCostGosterimler(civiSpdUpgCost, civiSpdUpgCostText, "");
         upgradeCostGosterimler(disliSpdUpgCost, disliSpdUpgCostText, "");
         //Hýz yükseltmesine para yetmiyorsa
@@ -499,6 +583,7 @@ public class Menu : MonoBehaviour
         upgradeCostGosterimler(demirOreSpdUpgCost, demirOrespdyouneeddollartext, "You Need $");
         upgradeCostGosterimler(timberSpdUpgCost, timberspdyouneeddollartext, "You Need $");
         upgradeCostGosterimler(kulceSpdUpgCost, kulcespdyouneeddollartext, "You Need $");
+        upgradeCostGosterimler(masaSpdUpgCost, masaspdyouneeddollartext, "You Need $");
         upgradeCostGosterimler(civiSpdUpgCost, civispdyouneeddollartext, "You Need $");
         upgradeCostGosterimler(disliSpdUpgCost, dislispdyouneeddollartext, "You Need $");
 
@@ -507,6 +592,7 @@ public class Menu : MonoBehaviour
         upgradeCostGosterimler(demirOreIncUpgCost, demirOreIncUpgCostText, "");
         upgradeCostGosterimler(timberIncUpgCost, timberIncUpgCostText, "");
         upgradeCostGosterimler(kulceIncUpgCost, kulceIncUpgCostText, "");
+        upgradeCostGosterimler(masaIncUpgCost, masaIncUpgCostText, "");
         upgradeCostGosterimler(civiIncUpgCost, civiIncUpgCostText, "");
         upgradeCostGosterimler(disliIncUpgCost, disliIncUpgCostText, "");
         //income yükseltmesine para yetmiyorsa
@@ -514,6 +600,7 @@ public class Menu : MonoBehaviour
         upgradeCostGosterimler(demirOreIncUpgCost, demirOreincyouneeddollartext, "You Need $");
         upgradeCostGosterimler(timberIncUpgCost, timberincyouneeddollartext, "You Need $");
         upgradeCostGosterimler(kulceIncUpgCost, kulceincyouneeddollartext, "You Need $");
+        upgradeCostGosterimler(masaIncUpgCost, masaincyouneeddollartext, "You Need $");
         upgradeCostGosterimler(civiIncUpgCost, civiincyouneeddollartext, "You Need $");
         upgradeCostGosterimler(disliIncUpgCost, disliincyouneeddollartext, "You Need $");
         #endregion
@@ -574,6 +661,27 @@ public class Menu : MonoBehaviour
 
         //Külçe ui, bina alýnýnca açýlacak
         uiGosterimleri(kulceAlindi, kulceUi, kulceSatUnite);
+        #endregion
+
+        #region Masa
+        //Masa bina al butonu
+        binaAlButonuUcDegis(GameManager.gm.civiStok, 50, GameManager.gm.odunStok, 60, 1000, buyMasaButton, masaAlindi, masafillbar);
+
+        //Masa hýz ve income upgrade butonlarý, para yetmiyorsa kapalý tut
+        upgButon(masaSpdUpgCost, masaSpdUpgBuyBtn);
+        upgButon(masaIncUpgCost, masaincUpgBtn);
+
+        //Menajer al butonu, para yetmiyorsa veya menajer alýndýysa kapat
+        buyMenajerButon(masaMenajerAlindi, buyMasaciBtn, 2000);
+
+        //Menü Masa menajer ünitesi, bina alýnmadýysa kapalý kalsýn
+        menajerUniteleri(masaAlindi, masaciUnite);
+
+        //Masa üret butonu, odun civi yoksa
+        uretimButonuikidegisken(GameManager.gm.odunStok, GameManager.gm.civiStok, masaUretButon);
+
+        //Masa ui, bina alýnýnca açýlacak
+        uiGosterimleri(masaAlindi, masaUi, masaSatUnite);
         #endregion
 
         #region Çivi        
@@ -663,6 +771,7 @@ public class Menu : MonoBehaviour
         //Bina alýnýnca çitleri kapat, binayý aç        
         binaAlindi(keresteAlindi, keresteBinaCitleri, keresteBina);
         binaAlindi(kulceAlindi, kulceBinaCitleri, kulceBina);
+        binaAlindi(masaAlindi, masaBinaCitleri, masaBina);
         binaAlindi(civiAlindi, civiBinaCitleri, civiBina);
         binaAlindi(disliAlindi, disliBinaCitleri, disliBina);
         #endregion
@@ -914,6 +1023,73 @@ public class Menu : MonoBehaviour
         kulceUretButon.SetActive(true);
         kulcefillbar.SetActive(true);
         kulceBinaNotEnoMnyText.SetActive(false);
+    }
+    #endregion
+
+    #endregion
+
+    #region Masa
+
+    #region Masa sell button
+    public void masaSatTus()
+    {
+        GameManager.gm.anaPara += GameManager.gm.masaStok * GameManager.gm.masaPara;
+        GameManager.gm.masaStok = 0;
+    }
+    #endregion
+
+    #region Buy Masacý Buton
+    public void BuyMasaciButton()
+    {
+        if (GameManager.gm.anaPara >= 2000) //menajeri almak için yeterli para varsa
+        {
+            GameManager.gm.anaPara -= 2000;
+            masaMenajerAlindi = true;
+            buyMasaciBtn.SetActive(false);
+            masaMgrNotEnoMnyText.SetActive(false);
+        }
+    }
+    #endregion
+
+    #region Masa speed upg button
+    public void MasaSpeedUpgButton()
+    {
+        if (GameManager.gm.anaPara >= masaSpdUpgCost) //paramýz upgradei almaya yetiyorsa
+        {
+            GameManager.gm.anaPara -= masaSpdUpgCost;
+            masaSpdUpgLvl += 1;
+            masaZamanCarpan *= 1.3f;
+            masaSpdUpgCost *= 2.3f;
+        }//dengele
+    }
+    #endregion
+
+    #region Masa income upg button
+    public void MasaIncomeUpgButton()
+    {
+        if (GameManager.gm.anaPara >= masaIncUpgCost) //anaparamýz upgradei almaya yetiyorsa
+        {
+            GameManager.gm.anaPara -= masaIncUpgCost;
+            GameManager.gm.masaPara *= 1.3f;
+            masaIncUpgLvl += 1;
+            masaIncUpgCost *= 2.3f;
+        }//dengele
+    }
+    #endregion
+
+    #region Buy Masa Bina button, fýrýn binasý
+    public void BuyMasaBuildingButton()
+    {
+        GameManager.gm.anaPara -= 1000;
+        GameManager.gm.civiStok -= 50;
+        GameManager.gm.odunStok -= 60;
+        masaAlindi = true;
+
+        masaBinaCitleri.SetActive(false);
+        masaBina.SetActive(true);
+        masaUretButon.SetActive(true);
+        masafillbar.SetActive(true);
+        masaBinaNotEnoMnyText.SetActive(false);
     }
     #endregion
 
