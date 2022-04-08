@@ -448,6 +448,83 @@ public class Menu : MonoBehaviour
     public float civiTime;            //fillbar kontrolü
     #endregion
 
+    #region Boya
+    [BoxGroup("BOYA")]
+    [FoldoutGroup("BOYA/Booleans")]
+    public bool boyaMenajerAlindi;             //menajer alýnýnca true olarak üretimi otomatikleþtiriyor
+    [FoldoutGroup("BOYA/Booleans")]
+    public bool boyaAlindi;                    //diþli binasý alýnýnca tuþu tekrar açýlmasýn diye
+
+
+    [FoldoutGroup("BOYA/Upgrade Seviyeleri")]
+    public int boyaSpdUpgLvl;                  //diþli gelir upg seviyesi
+    [FoldoutGroup("BOYA/Upgrade Seviyeleri")]
+    public int boyaIncUpgLvl;                  //diþli hýz upg seviyesi
+
+
+    [FoldoutGroup("BOYA/Upgrade Ücretleri")]
+    public float boyaSpdUpgCost;               //diþli hýz upg için gereken para
+    [FoldoutGroup("BOYA/Upgrade Ücretleri")]
+    public float boyaIncUpgCost;               //diþli gelir upg için gereken para
+
+
+    [FoldoutGroup("BOYA/Speed upgrade textleri")]
+    public Text boyaSpdUpgLvlText;             //diþli hýz upg ücret text
+    [FoldoutGroup("BOYA/Speed upgrade textleri")]
+    public Text boyaSpdUpgCostText;            //diþli hýz upg seviye text
+    [FoldoutGroup("BOYA/Speed upgrade textleri")]
+    public Text boyaspdyouneeddollartext;      //para yetmiyorsa ne kadar gerektiðini yazýyor
+    [FoldoutGroup("BOYA/Income upgrade textleri")]
+    public Text boyaIncUpgLvlText;             //diþli gelir upg seviye text
+    [FoldoutGroup("BOYA/Income upgrade textleri")]
+    public Text boyaincyouneeddollartext;      //para yetmiyorsa ne kadar gerektiðini yazýyor
+    [FoldoutGroup("BOYA/Income upgrade textleri")]
+    public Text boyaIncUpgCostText;            //diþli hýz upg ücret text
+
+
+    [FoldoutGroup("BOYA/GameObjectler")]
+    public GameObject boyaSpdUpgBuyBtn;        //hýz ve gelir upgrade butonlarý
+    [FoldoutGroup("BOYA/GameObjectler")]
+    public GameObject boyaincUpgBtn;           //hýz ve gelir upgrade butonlarý
+    [FoldoutGroup("BOYA/GameObjectler")]
+    public GameObject buyBoyaButton;            //diþli binasý satýn al butonu
+    [FoldoutGroup("BOYA/GameObjectler")]
+    public GameObject buyBoyaMngrBtn;           //diþli menajer satýn alma butonu
+    [FoldoutGroup("BOYA/GameObjectler")]
+    public GameObject boyaUretButon;           //bina alýnýnca diþli üretme butonu açýlacak
+    [Space]
+    [FoldoutGroup("BOYA/GameObjectler")]
+    public GameObject boyaHizUpgUnite;         //bina satýn alýnmamýþsa bu upgradeler gözükmüyor
+    [FoldoutGroup("BOYA/GameObjectler")]
+    public GameObject boyaIncUpgUnite;         //bina satýn alýnmamýþsa bu upgradeler gözükmüyor
+    [FoldoutGroup("BOYA/GameObjectler")]
+    public GameObject boyaSatUnite;            //bina satýn alýnmamýþsa diþli sat kýsmý gözükmüyor
+    [FoldoutGroup("BOYA/GameObjectler")]
+    public GameObject boyaMngrUnite;           //Bina satýn alýnmamýþsa diþli menajer al kýsmý gözükmüyor
+    [FoldoutGroup("BOYA/GameObjectler")]
+    public GameObject boyaMgrNotEnoMnyText;    //menajer için yeterli para yok text, menajer satýn alýnca setactive'ini kapatmak için
+    [FoldoutGroup("BOYA/GameObjectler")]
+    public GameObject boyaBinaNotEnoMnyText;   //bina için yeterli para yok text, menajer satýn alýnca setactive'ini kapatmak için
+    [FoldoutGroup("BOYA/GameObjectler")]
+    public GameObject boyaBinaCitleri;         //diþli binasý satýn alýnýnca çitleri kapatacaðým
+    [FoldoutGroup("BOYA/GameObjectler")]
+    public GameObject boyaBina;                //çitler kalkýnca yerine gelecek bina, satýn alýnýnca açýlacak
+    [FoldoutGroup("BOYA/GameObjectler")]
+    public GameObject boyafillbar;             //diþli binasýnýn fillbarý ve butonu satýn alýnýnca açýlsýn diye
+    [FoldoutGroup("BOYA/GameObjectler")]
+    public GameObject boyaUi;                  //bina satýn alýndýðýnda gözüksün
+
+
+    [FoldoutGroup("BOYA/Fillbar")]
+    public Image boyaFillbar;         //fillbar pngsi
+    [FoldoutGroup("BOYA/Fillbar")]
+    public float boyatimer;           //Bunu time'a böldürerek fillbarý kontrol ediyorum
+    [FoldoutGroup("BOYA/Fillbar")]
+    public float boyaZamanCarpan;     //fillbarýn ne kadar hýzlý dolacaðýný belirliyor
+    [FoldoutGroup("BOYA/Fillbar")]
+    public float boyaTime;            //fillbar kontrolü
+    #endregion
+
     #region Diþli
     [BoxGroup("DÝSLÝ")]
     [FoldoutGroup("DÝSLÝ/Booleans")]
@@ -523,7 +600,7 @@ public class Menu : MonoBehaviour
     public float disliZamanCarpan;     //fillbarýn ne kadar hýzlý dolacaðýný belirliyor
     [FoldoutGroup("DÝSLÝ/Fillbar")]
     public float disliTime;            //fillbar kontrolü
-    #endregion
+    #endregion    
 
     #endregion
 
@@ -554,19 +631,23 @@ public class Menu : MonoBehaviour
         civiIncUpgLvlText.text = "x" + civiIncUpgLvl;
         disliSpdUpgLvlText.text = "x" + disliSpdUpgLvl;
         disliIncUpgLvlText.text = "x" + disliIncUpgLvl;
+        boyaSpdUpgLvlText.text = "x" + boyaSpdUpgLvl;
+        boyaIncUpgLvlText.text = "x" + boyaIncUpgLvl;
         #endregion
 
-        #region Binalar alýnmamýþken upgradeler kapalý kalsýn        
+        #region Binalar alýnmamýþken upgradeler kapalý kalsýn
         keresteHizUpgUnite.SetActive(keresteAlindi);
-        keresteIncUpgUnite.SetActive(keresteAlindi);        
+        keresteIncUpgUnite.SetActive(keresteAlindi);
         kulceHizUpgUnite.SetActive(kulceAlindi);
         kulceIncUpgUnite.SetActive(kulceAlindi);
         masaHizUpgUnite.SetActive(masaAlindi);
         masaIncUpgUnite.SetActive(masaAlindi);
         civiHizUpgUnite.SetActive(civiAlindi);
-        civiIncUpgUnite.SetActive(civiAlindi);        
+        civiIncUpgUnite.SetActive(civiAlindi);
         disliHizUpgUnite.SetActive(disliAlindi);
         disliIncUpgUnite.SetActive(disliAlindi);
+        boyaHizUpgUnite.SetActive(boyaAlindi);
+        boyaIncUpgUnite.SetActive(boyaAlindi);
         #endregion
 
         #region Yükseltme cost ve gereken para gösterimleri
@@ -578,6 +659,7 @@ public class Menu : MonoBehaviour
         upgradeCostGosterimler(masaSpdUpgCost, masaSpdUpgCostText, "");
         upgradeCostGosterimler(civiSpdUpgCost, civiSpdUpgCostText, "");
         upgradeCostGosterimler(disliSpdUpgCost, disliSpdUpgCostText, "");
+        upgradeCostGosterimler(boyaSpdUpgCost, boyaSpdUpgCostText, "");
         //Hýz yükseltmesine para yetmiyorsa
         upgradeCostGosterimler(woodSpdUpgCost, woodspdyouneeddollartext, "You Need $");
         upgradeCostGosterimler(demirOreSpdUpgCost, demirOrespdyouneeddollartext, "You Need $");
@@ -586,6 +668,7 @@ public class Menu : MonoBehaviour
         upgradeCostGosterimler(masaSpdUpgCost, masaspdyouneeddollartext, "You Need $");
         upgradeCostGosterimler(civiSpdUpgCost, civispdyouneeddollartext, "You Need $");
         upgradeCostGosterimler(disliSpdUpgCost, dislispdyouneeddollartext, "You Need $");
+        upgradeCostGosterimler(boyaSpdUpgCost, boyaspdyouneeddollartext, "You Need $");
 
         //income yükseltmeleri
         upgradeCostGosterimler(woodIncUpgCost, woodIncUpgCostText, "");
@@ -595,6 +678,7 @@ public class Menu : MonoBehaviour
         upgradeCostGosterimler(masaIncUpgCost, masaIncUpgCostText, "");
         upgradeCostGosterimler(civiIncUpgCost, civiIncUpgCostText, "");
         upgradeCostGosterimler(disliIncUpgCost, disliIncUpgCostText, "");
+        upgradeCostGosterimler(boyaIncUpgCost, boyaIncUpgCostText, "");
         //income yükseltmesine para yetmiyorsa
         upgradeCostGosterimler(woodIncUpgCost, woodincyouneeddollartext, "You Need $");
         upgradeCostGosterimler(demirOreIncUpgCost, demirOreincyouneeddollartext, "You Need $");
@@ -603,6 +687,7 @@ public class Menu : MonoBehaviour
         upgradeCostGosterimler(masaIncUpgCost, masaincyouneeddollartext, "You Need $");
         upgradeCostGosterimler(civiIncUpgCost, civiincyouneeddollartext, "You Need $");
         upgradeCostGosterimler(disliIncUpgCost, disliincyouneeddollartext, "You Need $");
+        upgradeCostGosterimler(boyaIncUpgCost, boyaincyouneeddollartext, "You Need $");
         #endregion
 
         #endregion//Upgrade Textleri
@@ -678,7 +763,7 @@ public class Menu : MonoBehaviour
         menajerUniteleri(masaAlindi, masaciUnite);
 
         //Masa üret butonu, odun civi yoksa
-        uretimButonuikidegisken(GameManager.gm.odunStok, GameManager.gm.civiStok, masaUretButon);
+        uretimButonuikidegisken(GameManager.gm.keresteStok, GameManager.gm.civiStok, masaUretButon);
 
         //Masa ui, bina alýnýnca açýlacak
         uiGosterimleri(masaAlindi, masaUi, masaSatUnite);
@@ -724,6 +809,27 @@ public class Menu : MonoBehaviour
 
         //Diþli ui, bina alýnýnca açýlacak
         uiGosterimleri(disliAlindi, disliUi, disliSatUnite);
+        #endregion
+
+        #region Boya
+        //Boya bina al butonu
+        binaAlButonuUcDegis(GameManager.gm.keresteStok, 50, GameManager.gm.odunStok, 50, 1750, buyBoyaButton, boyaAlindi, boyafillbar);
+
+        //Boya hýz ve income upgrade butonlarý, para yetmiyorsa kapalý tut
+        upgButon(boyaSpdUpgCost, boyaSpdUpgBuyBtn);
+        upgButon(boyaIncUpgCost, boyaincUpgBtn);
+
+        //Menajer al butonu, para yetmiyorsa veya menajer alýndýysa kapat
+        buyMenajerButon(boyaMenajerAlindi, buyBoyaMngrBtn, 3500);
+
+        //Menü boya menajer ünitesi, bina alýnmadýysa kapalý kalsýn
+        menajerUniteleri(boyaAlindi, boyaMngrUnite);
+
+        //Boya üret butonu, odun külçe yoksa
+        uretimButonuikidegisken(GameManager.gm.masaStok, GameManager.gm.masaStok, boyaUretButon);
+
+        //Boya ui, bina alýnýnca açýlacak
+        uiGosterimleri(boyaAlindi, boyaUi, boyaSatUnite);
         #endregion
 
         #endregion
@@ -774,6 +880,7 @@ public class Menu : MonoBehaviour
         binaAlindi(masaAlindi, masaBinaCitleri, masaBina);
         binaAlindi(civiAlindi, civiBinaCitleri, civiBina);
         binaAlindi(disliAlindi, disliBinaCitleri, disliBina);
+        binaAlindi(boyaAlindi, boyaBinaCitleri, boyaBina);
         #endregion
 
     }
@@ -1229,11 +1336,78 @@ public class Menu : MonoBehaviour
 
     #endregion
 
+    #region Boya
+
+    #region Boya sell button
+    public void boyaSatTus()
+    {
+        GameManager.gm.anaPara += GameManager.gm.boyaStok * GameManager.gm.boyaPara;
+        GameManager.gm.boyaStok = 0;
+    }
+    #endregion
+
+    #region Buy Boyamngr Button
+    public void BuyBoyaMngrButton()
+    {
+        if (GameManager.gm.anaPara >= 3500) //menajeri almak için yeterli para varsa
+        {
+            GameManager.gm.anaPara -= 3500;
+            boyaMenajerAlindi = true;
+            buyBoyaMngrBtn.SetActive(false);
+            boyaMgrNotEnoMnyText.SetActive(false);
+        }
+    }
+    #endregion
+
+    #region Boya speed upg button
+    public void boyaSpeedUpgButton()
+    {
+        if (GameManager.gm.anaPara >= boyaSpdUpgCost) //paramýz upgradei almaya yetiyorsa
+        {
+            GameManager.gm.anaPara -= boyaSpdUpgCost;
+            boyaSpdUpgLvl += 1;
+            boyaZamanCarpan *= 1.3f;
+            boyaSpdUpgCost *= 2.3f;
+        }//dengele
+    }
+    #endregion
+
+    #region Boya income upg button
+    public void boyaIncomeUpgButton()
+    {
+        if (GameManager.gm.anaPara >= boyaIncUpgCost) //anaparamýz upgradei almaya yetiyorsa
+        {
+            GameManager.gm.anaPara -= boyaIncUpgCost;
+            GameManager.gm.boyaPara *= 1.3f;
+            boyaIncUpgLvl += 1;
+            boyaIncUpgCost *= 2.3f;
+        }//dengele
+    }
+    #endregion
+
+    #region Buy boya button, diþli binasý
+    public void BuyBoyaBuildingButton()
+    {
+        GameManager.gm.anaPara -= 1750;
+        GameManager.gm.odunStok -= 50;
+        GameManager.gm.keresteStok -= 50;
+        boyaAlindi = true;
+
+        boyaBinaCitleri.SetActive(false);
+        boyaBina.SetActive(true);
+        boyaUretButon.SetActive(true);
+        boyafillbar.SetActive(true);
+        boyaBinaNotEnoMnyText.SetActive(false);
+    }
+    #endregion
+
+    #endregion
+
     #endregion
 
     #region Genel kullaným için fonskiyonlar
 
-        #region Save Load'da sorun çýkaranlar için fonskiyonlar
+    #region Save Load'da sorun çýkaranlar için fonskiyonlar
 
     #region Menajer alýndý/üret tuþu
     public void mgrButonKapat(bool mgralindi, GameObject cutBtn)

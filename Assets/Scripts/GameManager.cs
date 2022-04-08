@@ -35,6 +35,8 @@ public class GameManager : MonoBehaviour
     public double civiStok;             //stoktaki çivi sayýsý
     [TabGroup("Kasa")]
     public double disliStok;            //stoktaki diþli sayýsý
+    [TabGroup("Kasa")]
+    public double boyaStok;           //stoktaki boyalý kereste sayýsý
 
     [TabGroup("Kasa")]
     public double odunPara;             //bir odunun kaç paraya satýlacaðýný tutuyor
@@ -50,6 +52,8 @@ public class GameManager : MonoBehaviour
     public double civiPara;             //bir çivinin kaç paraya satýlacaðýný tutuyor
     [TabGroup("Kasa")]
     public double disliPara;            //bir diþlinin kaç paraya satýlacaðýný tutuyor
+    [TabGroup("Kasa")]
+    public double boyaPara;           //bir boyalý kerestenin kaç paraya satýlacaðýný tutuyor
 
     [TabGroup("Text")]
     public Text cuzdanText;             //anaparamýzý tutan text
@@ -102,6 +106,13 @@ public class GameManager : MonoBehaviour
     public Text disliStokText;          //diþli stoðu tutan text
     [TabGroup("Text")]
     public Text disliFillbarYuzdeText;  //fillbarýn yüzde kaç dolduðunu yazan text
+    [Space]
+    [TabGroup("Text")]
+    public Text boyaSatButonText;      //sat tuþunda gelecek parayý yazan text
+    [TabGroup("Text")]
+    public Text boyaStokText;          //diþli stoðu tutan text
+    [TabGroup("Text")]
+    public Text boyaFillbarYuzdeText;  //fillbarýn yüzde kaç dolduðunu yazan text
 
 
     [TabGroup("Bools")]
@@ -125,6 +136,8 @@ public class GameManager : MonoBehaviour
     public bool civiUretimBool;         //tuþa basýldýðýnda true olarak update'teki üretim sürecini baþlatýyor
     [TabGroup("Bools")]
     public bool disliUretimBool;         //tuþa basýldýðýnda true olarak update'teki üretim sürecini baþlatýyor
+    [TabGroup("Bools")]
+    public bool boyaUretimBool;         //tuþa basýldýðýnda true olarak update'teki üretim sürecini baþlatýyor
 
 
     [TabGroup("Animator")]
@@ -141,6 +154,8 @@ public class GameManager : MonoBehaviour
     public Animator civiAnimator;       //animasyonu durdurup baþlatýyorum
     [TabGroup("Animator")]
     public Animator disliAnimator;      //animasyonu durdurup baþlatýyorum
+    [TabGroup("Animator")]
+    public Animator fircaAnimator;      //animasyonu durdurup baþlatýyorum
 
     [TabGroup("GObj")]
     public GameObject kamera;
@@ -426,6 +441,11 @@ public class GameManager : MonoBehaviour
                     masaStok += 1;
                     masaUretimBool = false;
                 }
+                if (Menu.menu.masatimer == 0)
+                {
+                    civiStok -= 1;
+                    keresteStok -= 1;
+                }
             }
             else
             {
@@ -436,7 +456,7 @@ public class GameManager : MonoBehaviour
         }
         else //menajer varken burasý
         {
-            if (anaPara >= 5)
+            if ((keresteStok >= 1) && (civiStok >= 1))
             {
                 masaUretimBool = true;
                 Menu.menu.masaUretButon.SetActive(false);
@@ -456,7 +476,7 @@ public class GameManager : MonoBehaviour
                 if (Menu.menu.masatimer == 0)
                 {
                     civiStok -= 1;
-                    odunStok -= 1;
+                    keresteStok -= 1;
                 }
             }
             else
@@ -625,6 +645,80 @@ public class GameManager : MonoBehaviour
 
         ////////////////////////////////////////////
 
+        #region Boya
+
+        #region Boya Üretim
+        if (Menu.menu.boyaMenajerAlindi == false)//menajer yokken burasý
+        {
+            if (boyaUretimBool == true)
+            {
+                #region Fillbar
+                Menu.menu.boyatimer += Menu.menu.boyaZamanCarpan * Time.deltaTime; //fillbar dolumu
+                Menu.menu.boyaFillbar.fillAmount = Menu.menu.boyatimer / Menu.menu.boyaTime;
+                boyaFillbarYuzdeText.text = string.Format("%" + "{0:#}", ((Menu.menu.boyatimer / Menu.menu.boyaTime) * 100));
+                #endregion
+
+                fircaAnimator.enabled = true;
+
+                if (Menu.menu.boyatimer >= Menu.menu.boyaTime) //fillbar dolduðunda
+                {
+                    Menu.menu.boyatimer = 0; //fillbarý sýfýrla
+                    boyaStok += 1;
+                    boyaUretimBool = false;
+                }
+            }
+            else
+            {
+                boyaFillbarYuzdeText.text = "%0";
+                Menu.menu.boyaFillbar.fillAmount = 0;
+                fircaAnimator.enabled = false;
+            }
+        }
+        else //menajer varken burasý
+        {
+            if (masaStok >= 1)
+            {
+                boyaUretimBool = true;
+                Menu.menu.boyaUretButon.SetActive(false);
+                fircaAnimator.enabled = true;
+
+                #region Fillbar
+                Menu.menu.boyatimer += Menu.menu.boyaZamanCarpan * Time.deltaTime; //fillbar dolumu
+                Menu.menu.boyaFillbar.fillAmount = Menu.menu.boyatimer / Menu.menu.boyaTime;
+                boyaFillbarYuzdeText.text = string.Format("%" + "{0:#}", ((Menu.menu.boyatimer / Menu.menu.boyaTime) * 100));
+                #endregion
+
+                if (Menu.menu.boyatimer >= Menu.menu.boyaTime) //fillbar dolduðunda
+                {
+                    Menu.menu.boyatimer = 0; //fillbarý sýfýrla
+                    boyaStok += 1;
+                }
+                if (Menu.menu.boyatimer == 0)
+                {
+                    masaStok -= 1;
+                }
+            }
+            else
+            {
+                Menu.menu.boyaFillbar.fillAmount = 0;
+                boyaFillbarYuzdeText.text = "%0";
+                fircaAnimator.enabled = false;
+            }
+        }
+        #endregion
+
+        #region Boya Text
+        //Boya stok gösterim
+        StokGosterimler(boyaStok, boyaStokText);
+
+        //Boya sat buton text
+        textlerSatButon(boyaStok, boyaPara, boyaSatButonText);
+        #endregion
+
+        #endregion
+
+        ////////////////////////////////////////////
+
 
         #region Textler
         // anaPara gösterim
@@ -637,6 +731,7 @@ public class GameManager : MonoBehaviour
         SifirsaBozma(masaStok, masaStokText);
         SifirsaBozma(disliStok, disliStokText);
         SifirsaBozma(civiStok, civiStokText);
+        SifirsaBozma(boyaStok, boyaStokText);
         #endregion
 
         #region Dünyaya göre kamera pozisyonu ve gui
@@ -665,6 +760,7 @@ public class GameManager : MonoBehaviour
             keresteStok += 1;
             civiStok += 1;
             disliStok += 1;
+            boyaStok += 1;
         }
         #endregion
 
@@ -712,12 +808,7 @@ public class GameManager : MonoBehaviour
 
     #region Masa Üretim
     public void MasaUretim()
-    {
-        if (masaUretimBool == false)
-        {
-            civiStok -= 1;
-            odunStok -= 1;
-        }
+    {        
         masaUretimBool = true;
     }
     #endregion
@@ -743,6 +834,17 @@ public class GameManager : MonoBehaviour
             odunStok -= 1;
         }
         disliUretimBool = true;
+    }
+    #endregion
+
+    #region Boya Üretim
+    public void BoyaUretim()
+    {
+        boyaUretimBool = true;
+        if (masaUretimBool == false)
+        {
+            masaStok -= 1;
+        }
     }
     #endregion
 
