@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using static System.Math;
+using System;
 using Sirenix.OdinInspector;
 #endregion
 
@@ -9,6 +10,7 @@ public class Menu : MonoBehaviour
 {
     public static Menu menu; //singleton için
     public static GameManager gm;
+    public static SaveSystem Savesys;
 
     #region Deðiþkenler
 
@@ -600,7 +602,72 @@ public class Menu : MonoBehaviour
     public float disliZamanCarpan;     //fillbarýn ne kadar hýzlý dolacaðýný belirliyor
     [FoldoutGroup("DÝSLÝ/Fillbar")]
     public float disliTime;            //fillbar kontrolü
-    #endregion    
+    #endregion
+
+    #region Offline Progress
+    [BoxGroup("Offline Progress")]
+
+    [FoldoutGroup("Offline Progress/Genel")]
+    public Text awayTimeText;
+    [FoldoutGroup("Offline Progress/Genel")]
+    public GameObject OfflineProgressGOBJ;
+    [FoldoutGroup("Offline Progress/Genel")]
+    public DateTime sonGiris;
+    [FoldoutGroup("Offline Progress/Genel")]
+    public TimeSpan ts;
+    [FoldoutGroup("Offline Progress/Genel")]
+    public string sonGirisZaman;
+    [FoldoutGroup("Offline Progress/Genel")]
+    public int tssikim;
+    [FoldoutGroup("Offline Progress/Genel")]
+    public bool odunOpDone;
+    [FoldoutGroup("Offline Progress/Genel")]
+    public bool DemirOpDone;
+    [FoldoutGroup("Offline Progress/Genel")]
+    public bool KeresteOpDone;
+    [FoldoutGroup("Offline Progress/Genel")]
+    public bool KulceOpDone;
+    [FoldoutGroup("Offline Progress/Genel")]
+    public bool MasaOpDone;
+    [FoldoutGroup("Offline Progress/Genel")]
+    public bool CiviOpDone;
+    
+
+    [FoldoutGroup("Offline Progress/Textler")]
+    public Text Odun;
+    [FoldoutGroup("Offline Progress/Textler")]
+    public Text Demir;
+    [FoldoutGroup("Offline Progress/Textler")]
+    public Text Kereste;
+    [FoldoutGroup("Offline Progress/Textler")]
+    public Text Kulce;
+    [FoldoutGroup("Offline Progress/Textler")]
+    public Text Masa;
+    [FoldoutGroup("Offline Progress/Textler")]
+    public Text Civi;
+    [FoldoutGroup("Offline Progress/Textler")]
+    public Text Boya;
+    [FoldoutGroup("Offline Progress/Textler")]
+    public Text Disli;
+
+    
+    [FoldoutGroup("Offline Progress/xPerSec")]
+    public float odunPerSec;
+    [FoldoutGroup("Offline Progress/xPerSec")]
+    public float demirPerSec;
+    [FoldoutGroup("Offline Progress/xPerSec")]
+    public float kerestePerSec;
+    [FoldoutGroup("Offline Progress/xPerSec")]
+    public float kulcePerSec;
+    [FoldoutGroup("Offline Progress/xPerSec")]
+    public float masaPerSec;
+    [FoldoutGroup("Offline Progress/xPerSec")]
+    public float civiPerSec;
+    [FoldoutGroup("Offline Progress/xPerSec")]
+    public float boyaPerSec;
+    [FoldoutGroup("Offline Progress/xPerSec")]
+    public float disliPerSec;
+    #endregion
 
     #endregion
 
@@ -609,7 +676,247 @@ public class Menu : MonoBehaviour
     {
         menu = this;
     }
-#endregion    
+    #endregion
+
+    #region Start
+    private void Start()
+    {
+        odunOpDone = false;
+        KeresteOpDone = false;
+        MasaOpDone = false;
+        DemirOpDone = false;
+        KulceOpDone = false;
+        CiviOpDone = false;
+
+        gm = GameManager.gm;
+
+        #region Offline Progress
+
+        #region persec ayarlama
+        odunPerSec = 1 / (odunTime / odunZamanCarpan);
+        demirPerSec = 1 / (demirTime / demirZamanCarpan);
+        kerestePerSec = 1 / (keresteTime / keresteZamanCarpan);
+        kulcePerSec = 1 / (kulceTime / kulceZamanCarpan);
+        masaPerSec = 1 / (masaTime / masaZamanCarpan);
+        civiPerSec = 1 / (civiTime / civiZamanCarpan);
+        boyaPerSec = 1 / (boyaTime / boyaZamanCarpan);
+        disliPerSec = 1 / (disliTime / disliZamanCarpan);
+        #endregion
+
+        #region Kazanç atama
+        if (sonGirisZaman != "")
+        {
+            OfflineProgressGOBJ.SetActive(true);
+            sonGiris = DateTime.Parse(sonGirisZaman);
+            ts = DateTime.Now - sonGiris;
+            tssikim = (int)ts.TotalSeconds;
+            awayTimeText.text = ts.Days + " Days " + ts.Hours + " Hours " + ts.Minutes + " Minutes " + ts.Seconds + " Seconds"          /*string.Format("{#} Days ", ts.Days) + string.Format("{#} Hours ", ts.Hours) + string.Format("{#} Minutes ", ts.Minutes) + string.Format("{#} Seconds", ts.Seconds)*/;
+
+            #region Textler ve eklemeler
+
+            #region Odun
+            if (odunOpDone == false)
+            {
+                if (odunMenajerAlindi == true)
+                {
+                    gm.odunStok += (int)(tssikim * odunPerSec);
+                    Odun.text = String.Format("{0:0}", (int)(tssikim * odunPerSec)) + " Woods";
+                }
+                else
+                {
+                    Odun.text = "0 Wood";
+                }
+                odunOpDone = true;
+            }
+            #endregion
+
+            #region Demir
+            if (DemirOpDone == false)
+            {
+                if (demirOreMenajerAlindi == true)
+                {
+                    gm.demirOreStok += (int)(tssikim * demirPerSec);
+                    Demir.text = String.Format("{0:0}", (int)(tssikim * demirPerSec)) + " Iron Ores";
+                }
+                else
+                {
+                    Demir.text = "0 Iron Ore";
+                }
+                DemirOpDone = true;
+            }
+            
+            #endregion
+
+            #region Kereste
+            if (odunOpDone == true)
+            {
+                if (keresteMenajerAlindi == true)
+                {
+                    if ((int)(tssikim * kerestePerSec) < gm.odunStok)
+                    {
+                        gm.keresteStok += (int)(tssikim * kerestePerSec);
+                        Kereste.text = (int)(tssikim * kerestePerSec) + " Timbers";
+                        gm.odunStok -= (int)(tssikim * kerestePerSec);
+                    }
+                    else
+                    {
+                        gm.keresteStok += (int)(tssikim * kerestePerSec) - ((int)(tssikim * kerestePerSec) - (gm.odunStok));
+                        Kereste.text = String.Format("{0:0}", (int)(tssikim * kerestePerSec) - ((int)(tssikim * kerestePerSec) - (gm.odunStok))) + " Nails";
+                        gm.odunStok = 0;
+                    }
+                }
+                else
+                {
+                    Kereste.text = "0 Timbers";
+                }
+                KeresteOpDone = true;
+            }
+            #endregion
+
+            #region Külçe
+            if (DemirOpDone == true)
+            {
+                if (kulceMenajerAlindi == true)
+                {
+                    if ((int)(tssikim * kulcePerSec) < gm.demirOreStok)
+                    {
+                        gm.kulceStok += (int)(tssikim * kulcePerSec);
+                        Kulce.text = String.Format("{0:0}", (tssikim * kulcePerSec)) + " Ingots";
+                        gm.demirOreStok -= (int)(tssikim * kulcePerSec);
+                    }
+                    else
+                    {
+                        gm.kulceStok += (int)(tssikim * kulcePerSec) - ((int)(tssikim * kulcePerSec) - (gm.demirOreStok));
+                        Kulce.text = String.Format("{0:0}", (int)(tssikim * kulcePerSec) - ((int)(tssikim * kulcePerSec) - (gm.demirOreStok))) + " Nails";
+                        gm.demirOreStok = 0;
+                    }
+                }
+                else
+                {
+                    Kulce.text = "0 Ingot";
+                }
+                KulceOpDone = true;
+            }
+            
+            #endregion
+
+            #region Masa
+            if (KeresteOpDone == true)
+            {
+                if (masaMenajerAlindi == true)
+                {
+                    if ((int)(tssikim * masaPerSec) < gm.keresteStok)
+                    {
+                        gm.masaStok += (int)(tssikim * masaPerSec);
+                        Masa.text = String.Format("{0:0}", (tssikim * masaPerSec)) + " Tables";
+                        gm.keresteStok -= (int)(tssikim * masaPerSec);
+                    }
+                    else
+                    {
+                        gm.masaStok += gm.keresteStok;
+                        Masa.text = String.Format("{0:0}", gm.keresteStok) + " Nails";
+                        gm.keresteStok = 0;
+                    }
+                }
+                else
+                {
+                    Masa.text = "0 Table";
+                }
+                MasaOpDone = true;
+            }
+
+            #endregion
+
+            #region Çivi
+            if (KulceOpDone == true)
+            {
+                if (civiMenajerAlindi == true)
+                {
+                    if ((int)(tssikim * civiPerSec) < gm.kulceStok)
+                    {
+                        gm.civiStok += (int)(tssikim * civiPerSec);
+                        Civi.text = String.Format("{0:0}", (int)(tssikim * civiPerSec)) + " Nails";
+                        gm.kulceStok -= (int)(tssikim * civiPerSec);
+                    }
+                    else
+                    {
+                        gm.civiStok += (int)(tssikim * civiPerSec) - ((int)(tssikim * civiPerSec) - (gm.kulceStok));
+                        Civi.text = String.Format("{0:0}", (int)(tssikim * civiPerSec) - ((int)(tssikim * civiPerSec) - (gm.kulceStok))) + " Nails";
+                        gm.kulceStok = 0;
+                    }
+                }
+                else
+                {
+                    Civi.text = "0 Nail";
+                }
+                CiviOpDone = true;
+            }
+            
+            #endregion
+
+            #region Boya
+            if (MasaOpDone == true)
+            {
+                if (boyaMenajerAlindi == true)
+                {
+                    if ((int)(tssikim * boyaPerSec) < gm.masaStok)
+                    {
+                        gm.boyaStok += (int)(tssikim * boyaPerSec);
+                        Boya.text = String.Format("{0:0}", (int)(tssikim * boyaPerSec)) + " Painted Tables";
+                        gm.masaStok -= (int)(tssikim * boyaPerSec);
+                    }
+                    else
+                    {
+                        gm.boyaStok += (int)(tssikim * boyaPerSec) - ((int)(tssikim * boyaPerSec) - (gm.masaStok));
+                        Boya.text = String.Format("{0:0}", (int)(tssikim * boyaPerSec) - ((int)(tssikim * boyaPerSec) - (gm.masaStok))) + " Painted Tables";
+                        gm.masaStok = 0;
+                    }
+                }
+                else
+                {
+                    Boya.text = "0 Painted Table";
+                }
+            }
+
+            #endregion
+
+            #region Diþli
+            if ((KulceOpDone == true) && (CiviOpDone == true))
+            {
+                if (disliMenajerAlindi == true)
+                {
+                    if ((int)(tssikim * disliPerSec) < gm.kulceStok)
+                    {
+                        gm.disliStok += (int)(tssikim * disliPerSec);
+                        Disli.text = String.Format("{0:0}", (int)(tssikim * disliPerSec)) + " Gears";
+                        gm.kulceStok -= (int)(tssikim * disliPerSec);
+                    }
+                    else
+                    {
+                        gm.disliStok += (int)(tssikim * disliPerSec) - ((int)(tssikim * disliPerSec) - (gm.kulceStok));
+                        Disli.text = String.Format("{0:0}", (int)(tssikim * disliPerSec) - ((int)(tssikim * disliPerSec) - (gm.kulceStok))) + " Gears";
+                        gm.kulceStok = 0;
+                    }
+                }
+                else
+                {
+                    Disli.text = "0 Gears";
+                }
+            }
+            
+            #endregion
+
+            #endregion
+        }
+        else
+        {
+            OfflineProgressGOBJ.SetActive(false);
+        }
+        #endregion
+
+        #endregion
+    }
+    #endregion
 
     #region Update
     private void Update()
@@ -696,7 +1003,7 @@ public class Menu : MonoBehaviour
 
         #region Odun
         //Menajer al butonu, para yetmiyorsa veya menajer alýndýysa kapat
-        buyMenajerButon(odunMenajerAlindi, buyWoodmanBtn, 200);        
+        buyMenajerButon(odunMenajerAlindi, buyWoodmanBtn, 200);
         //Külçe hýz ve income upgrade butonlarý, para yetmiyorsa kapalý tut
         upgButon(woodSpdUpgCost, woodSpdUpgBuyBtn);
         upgButon(woodIncUpgCost, woodincUpgBtn);
@@ -883,6 +1190,19 @@ public class Menu : MonoBehaviour
         binaAlindi(boyaAlindi, boyaBinaCitleri, boyaBina);
         #endregion
 
+        #region Saniyede kazanýlan malzeme
+        odunPerSec = 1 / (odunTime / odunZamanCarpan);
+        demirPerSec = 1 / (demirTime / demirZamanCarpan);
+        kerestePerSec = 1 / (keresteTime / keresteZamanCarpan);
+        kulcePerSec = 1 / (kulceTime / kulceZamanCarpan);
+        masaPerSec = 1 / (masaTime / masaZamanCarpan);
+        civiPerSec = 1 / (civiTime / civiZamanCarpan);
+        boyaPerSec = 1 / (boyaTime / boyaZamanCarpan);
+        disliPerSec = 1 / (disliTime / disliZamanCarpan);
+        #endregion
+
+        //Son çýkýþ zamanýný kaydet, burada kaydettirme sebebim; oyunu alt+f4, görev yöneticisi gibi yöntemlerle kapatsalar dahi kaydýn tutulmasý        
+        sonGirisZaman = DateTime.Now.ToString();
     }
     #endregion
 
@@ -1403,6 +1723,27 @@ public class Menu : MonoBehaviour
 
     #endregion
 
+    #region Sell All button
+    public void SellAll()
+    {
+        odunSatTus();
+        DemirOreSatButon();
+        timberSatTus();
+        kulceSatTus();
+        masaSatTus();
+        civiSatTus();
+        disliSatTus();
+        boyaSatTus();
+    }
+    #endregion
+
+    #region OfflineProgYayBtn
+    public void YayButton()
+    {
+        OfflineProgressGOBJ.SetActive(false);
+    }
+    #endregion
+
     #endregion
 
     #region Genel kullaným için fonskiyonlar
@@ -1494,6 +1835,21 @@ public class Menu : MonoBehaviour
         {costText.text = basYazi + (cost / quadrillion).ToString("F") + " Quadril.";}
         else if (cost >= quintillion)
         { costText.text = basYazi + (cost / quintillion).ToString("F") + " Quintil."; }
+    }
+    #endregion
+
+    #region Offline Progress için getiriler ve text gösterimleri
+    private void OfflineProgress(bool mgrBool, double degisken, double ts, float persec, Text txt, String malzeme)
+    {
+        if (mgrBool == true)
+        {
+            degisken += (int)(ts * persec);
+            txt.text = (int)(ts * persec) + malzeme;
+        }
+        else
+        {
+            txt.text = "0 " + malzeme;
+        }        
     }
     #endregion
 

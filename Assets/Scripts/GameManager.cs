@@ -6,7 +6,7 @@ using Sirenix.OdinInspector;
 #endregion
 
 public class GameManager : MonoBehaviour
-{
+{//fillbarlara fonksiyon yaz
     #region Deðiþkenler
     public static GameManager gm;
     public static Menu menu;
@@ -197,6 +197,7 @@ public class GameManager : MonoBehaviour
     #region Update
     void Update()
     {
+        #region Malzemeler
         #region Odun
 
         #region Balta Üretim
@@ -379,7 +380,7 @@ public class GameManager : MonoBehaviour
         }
         else //menajer varken burasý
         {
-            if ((odunStok >= 1) && (demirOreStok >= 1))
+            if ((demirOreStok >= 1))
             {
                 kulceUretimBool = true;
                 Menu.menu.kulceUretButon.SetActive(false);
@@ -394,7 +395,6 @@ public class GameManager : MonoBehaviour
                 if (Menu.menu.kulcetimer >= Menu.menu.kulceTime) //fillbar dolduðunda
                 {
                     Menu.menu.kulcetimer = 0; //fillbarý sýfýrla
-                    odunStok -= 1;
                     demirOreStok -= 1;
                     kulceStok += 1;
                 }
@@ -443,7 +443,6 @@ public class GameManager : MonoBehaviour
                 }
                 if (Menu.menu.masatimer == 0)
                 {
-                    civiStok -= 1;
                     keresteStok -= 1;
                 }
             }
@@ -456,7 +455,7 @@ public class GameManager : MonoBehaviour
         }
         else //menajer varken burasý
         {
-            if ((keresteStok >= 1) && (civiStok >= 1))
+            if ((keresteStok >= 1))
             {
                 masaUretimBool = true;
                 Menu.menu.masaUretButon.SetActive(false);
@@ -475,7 +474,6 @@ public class GameManager : MonoBehaviour
                 }
                 if (Menu.menu.masatimer == 0)
                 {
-                    civiStok -= 1;
                     keresteStok -= 1;
                 }
             }
@@ -531,7 +529,7 @@ public class GameManager : MonoBehaviour
         }
         else //menajer varken burasý
         {
-            if ((odunStok >= 1) && (kulceStok >= 1))
+            if ((kulceStok >= 1))
             {
                 civiUretimBool = true;
                 Menu.menu.civiUretButon.SetActive(false);
@@ -546,7 +544,6 @@ public class GameManager : MonoBehaviour
                 if (Menu.menu.civitimer >= Menu.menu.civiTime) //fillbar dolduðunda
                 {
                     Menu.menu.civitimer = 0; //fillbarý sýfýrla
-                    odunStok -= 1;
                     kulceStok -= 1;
                     civiStok += 1;
                 }
@@ -604,7 +601,7 @@ public class GameManager : MonoBehaviour
         }
         else //menajer varken burasý
         {
-            if ((odunStok >= 1) && (kulceStok >= 1))
+            if ((kulceStok >= 1))
             {
                 disliUretimBool = true;
                 Menu.menu.disliUretButon.SetActive(false);
@@ -619,7 +616,6 @@ public class GameManager : MonoBehaviour
                 if (Menu.menu.dislitimer >= Menu.menu.disliTime) //fillbar dolduðunda
                 {
                     Menu.menu.dislitimer = 0; //fillbarý sýfýrla
-                    odunStok -= 1;
                     kulceStok -= 1;
                     disliStok += 1;
                 }
@@ -718,7 +714,7 @@ public class GameManager : MonoBehaviour
         #endregion
 
         ////////////////////////////////////////////
-
+        #endregion        
 
         #region Textler
         // anaPara gösterim
@@ -788,9 +784,9 @@ public class GameManager : MonoBehaviour
     {
         if (keresteUretimBool == false)
         {
+            keresteUretimBool = true;
             odunStok -= 1;
         }
-        keresteUretimBool = true;
     }
     #endregion
 
@@ -799,17 +795,19 @@ public class GameManager : MonoBehaviour
     {
         if (kulceUretimBool == false)
         {
+            kulceUretimBool = true;
             demirOreStok -= 1;
-            odunStok -= 1;
         }
-        kulceUretimBool = true;
     }
     #endregion
 
     #region Masa Üretim
     public void MasaUretim()
-    {        
-        masaUretimBool = true;
+    {
+        if (masaUretimBool == false)
+        {
+            masaUretimBool = true;
+        }
     }
     #endregion
 
@@ -819,9 +817,8 @@ public class GameManager : MonoBehaviour
         if (civiUretimBool == false)
         {
             kulceStok -= 1;
-            odunStok -= 1;
+            civiUretimBool = true;
         }
-        civiUretimBool = true;
     }
     #endregion
 
@@ -830,19 +827,18 @@ public class GameManager : MonoBehaviour
     {
         if (disliUretimBool == false)
         {
+            disliUretimBool = true;
             kulceStok -= 1;
-            odunStok -= 1;
         }
-        disliUretimBool = true;
     }
     #endregion
 
     #region Boya Üretim
     public void BoyaUretim()
     {
-        boyaUretimBool = true;
-        if (masaUretimBool == false)
+        if (boyaUretimBool == false)
         {
+            boyaUretimBool = true;
             masaStok -= 1;
         }
     }

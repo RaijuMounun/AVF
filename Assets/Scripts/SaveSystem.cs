@@ -156,12 +156,23 @@ public class SaveSystem : MonoBehaviour
         save.dislitimer = Menu.menu.dislitimer;
         save.disliZamanCarpan = Menu.menu.disliZamanCarpan;
         save.disliTime = Menu.menu.disliTime;
-        save.disliSpdUpgCost = Menu.menu.disliSpdUpgCost;
-        save.disliIncUpgCost = Menu.menu.disliIncUpgCost;
+        save.disliSpdUpgLvl = Menu.menu.disliSpdUpgLvl;
+        save.disliIncUpgLvl = Menu.menu.disliIncUpgLvl;
         save.disliUretimBool = GameManager.gm.disliUretimBool;
         save.disliMenajerAlindi = Menu.menu.disliMenajerAlindi;
         save.disliAlindi = Menu.menu.disliAlindi;
         #endregion
+
+        save.sonGirisZaman = Menu.menu.sonGirisZaman;
+        save.odunpersec = Menu.menu.odunPerSec;
+        save.kerestepersec = Menu.menu.kerestePerSec;
+        save.masapersec = Menu.menu.masaPerSec;
+        save.boyapersec = Menu.menu.boyaPerSec;
+        save.demirpersec = Menu.menu.demirPerSec;
+        save.kulcepersec = Menu.menu.kulcePerSec;
+        save.civipersec = Menu.menu.civiPerSec;
+        save.dislipersec = Menu.menu.disliPerSec;
+
         #endregion
         binary.Serialize(file, save);
         file.Close();
@@ -300,6 +311,17 @@ public class SaveSystem : MonoBehaviour
             Menu.menu.disliMenajerAlindi = save.disliMenajerAlindi;
             Menu.menu.disliAlindi = save.disliAlindi;
             #endregion
+
+            Menu.menu.sonGirisZaman = save.sonGirisZaman;
+            Menu.menu.odunPerSec = save.odunpersec;
+            Menu.menu.kerestePerSec = save.kerestepersec;
+            Menu.menu.masaPerSec = save.masapersec;
+            Menu.menu.boyaPerSec = save.boyapersec;
+            Menu.menu.demirPerSec = save.demirpersec;
+            Menu.menu.kulcePerSec = save.kulcepersec;
+            Menu.menu.civiPerSec = save.civipersec;
+            Menu.menu.disliPerSec = save.dislipersec;
+
             #endregion
         }
     }
@@ -430,6 +452,16 @@ public class SaveManagement
     public bool disliMenajerAlindi;
     public bool disliAlindi;
     #endregion
+
+    public string sonGirisZaman;
+    public float odunpersec;
+    public float kerestepersec;
+    public float masapersec;
+    public float boyapersec;
+    public float demirpersec;
+    public float kulcepersec;
+    public float civipersec;
+    public float dislipersec;
 
     #endregion
 }
