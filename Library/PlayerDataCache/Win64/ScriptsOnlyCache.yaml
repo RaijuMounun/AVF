@@ -4,6 +4,13 @@ ScriptsOnlyBuild:
     - GameManager
     - Menu
     - SaveSystem
+    Sirenix.OdinInspector.Editor.dll:
+    - Sirenix.OdinInspector.Editor.ImportSettingsConfig
+    - Sirenix.OdinInspector.Editor.InspectorConfig
+    - Sirenix.OdinInspector.Editor.Modules.OdinModuleConfig
+    - Sirenix.Serialization.AOTGenerationConfig
+    Sirenix.Serialization.Config.dll:
+    - Sirenix.Serialization.GlobalSerializationConfig
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.UnitTesting.CallbackData
     UnityEditor.TestRunner.dll:
@@ -57,25 +64,27 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 1506}
+      Script: {instanceID: 1526}
     - Class: 114
-      Script: {instanceID: 1516}
+      Script: {instanceID: 1536}
     - Class: 114
-      Script: {instanceID: 2036}
+      Script: {instanceID: 2154}
     - Class: 114
-      Script: {instanceID: 2328}
+      Script: {instanceID: 2448}
     - Class: 114
-      Script: {instanceID: 2442}
+      Script: {instanceID: 2562}
     - Class: 114
-      Script: {instanceID: 2608}
+      Script: {instanceID: 2728}
     - Class: 114
-      Script: {instanceID: 2792}
+      Script: {instanceID: 2918}
     - Class: 114
-      Script: {instanceID: 2878}
+      Script: {instanceID: 3008}
     - Class: 114
-      Script: {instanceID: 3284}
+      Script: {instanceID: 3150}
     - Class: 114
-      Script: {instanceID: 3932}
+      Script: {instanceID: 3430}
+    - Class: 114
+      Script: {instanceID: 4080}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -107,7 +116,7 @@ ScriptsOnlyBuild:
     className: Image
   - hash:
       serializedVersion: 2
-      Hash: dfe0f4bf8a2d9eb0c835dfb8baa34c90
+      Hash: d6d57fd8deed2bc7815722f3d274b1fc
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Menu
@@ -117,6 +126,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
     className: TMP_InputField
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Sirenix.Utilities.dll
+    namespaceName: Sirenix.Utilities
+    className: ProjectPathFinder
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -159,6 +174,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: Shadow
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Sirenix.Utilities.dll
+    namespaceName: Sirenix.Utilities
+    className: ProjectPathFinder
   - hash:
       serializedVersion: 2
       Hash: 300fd99066f8c288e85f5e81ce65fe34
@@ -275,6 +296,12 @@ ScriptsOnlyBuild:
     className: TestResultRendererCallback
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Sirenix.Utilities.dll
+    namespaceName: Sirenix.Utilities
+    className: ProjectPathFinder
+  - hash:
+      serializedVersion: 2
       Hash: 748dd2a2a28da4e618912da5ac45684b
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.EventSystems
@@ -321,6 +348,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
     className: TextContainer
+  - hash:
+      serializedVersion: 2
+      Hash: 4c19117b72c897cd82801f0f9f36ca9c
+    assemblyName: Sirenix.Serialization.Config.dll
+    namespaceName: Sirenix.Serialization
+    className: GlobalSerializationConfig
   - hash:
       serializedVersion: 2
       Hash: 8aa3d6ccbcb54ee8db6c1229854adaaa
@@ -485,7 +518,7 @@ ScriptsOnlyBuild:
     className: TMP_Settings
   - hash:
       serializedVersion: 2
-      Hash: 43f062f4fe8011dfc8ac8cd5869e1bfa
+      Hash: 43a32bcec3d3026a4c33361026e79d88
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GameManager
@@ -534,4 +567,4 @@ ScriptsOnlyBuild:
   platform: 19
   scenePathNames:
   - Assets/Scenes/OdunLevel.unity
-  playerPath: C:/Users/monvu/Desktop/AVF Builds/AVF 0.1.6/Added Value Fetishist.exe
+  playerPath: C:/Users/monvu/Desktop/AVF Builds/AVF 0.1.7/Added Value Fetishist.exe
